@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary color -->
+    <color name="colorPrimary">#F8CB29</color>
+    <color name="colorPrimaryDark">#e1c355</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="textColor">#000</color>
+
+    <!-- Colors for background-->
+    <color name="whiteBack">#FFFFFF</color>
+    <color name="yellowBack">#ffdb61</color>
+
+    <!-- Color for line between text view -->
+    <color name="greyForLine">#494646</color>
+
+    <color name="transparentBackground">#00977F7F</color>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Translator</string>
+    <string name="primaryText">Укажите текст для перевода</string>
+    <string name="russian">Russian</string>
+    <string name="english">English</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Russian</item>
+        <item>French</item>
+        <item>Greek</item>
+        <item>Italian</item>
+        <item>Korean</item>
+        <item>Japanese</item>
+        <item>Polish</item>
+        <item>Ukrainian</item>
+        <item>German</item>
+    </string-array>
+</resources>
