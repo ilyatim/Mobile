@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.testmvvmapp.viewmodel.MyViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.activity.MainActivity"
+            android:id="@+id/LinearLayout"
+            android:orientation="vertical">
+
+        <TextView
+                android:text="@{viewModel.text}"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:id="@+id/textView" />
+        <ProgressBar
+                android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/progressBar"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1" android:layout_height="0dp">
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/repository_rv"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                    tools:listitem="@layout/rv_item_repository">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+        <Button
+                android:text="@string/change_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_gravity="bottom"
+                android:onClick="@{() -> viewModel.click()}"
+                android:clickable="@{viewModel.isLoading ? false : true}"/>
+    </LinearLayout>
+
+</layout>

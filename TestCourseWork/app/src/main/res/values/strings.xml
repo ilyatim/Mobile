@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Health</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_workout">workout</string>
+    <string name="title_about_me">about Me</string>
+    <string name="water">Вода</string>
+    <string name="glassPost">стак.</string>
+    <string name="startingValueOfWater">0</string>
+    <string name="buttonToIncreaseDrunkWater">Кнопка для увеличения количества выпитой воды</string>
+    <string name="buttonToDecreaseDrunkWater">Кнопка для уменьшения количества выпитой воды</string>
+</resources>
