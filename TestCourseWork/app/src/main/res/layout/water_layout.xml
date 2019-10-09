@@ -6,10 +6,12 @@
     </data>
     <LinearLayout
 
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="@dimen/normalLayoutPadding"
+            android:paddingEnd="@dimen/normalLayoutPadding"
             android:orientation="vertical"
-            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/normalLayoutMargin"
+            android:layout_marginLeft="@dimen/normalLayoutMargin"
+            android:layout_marginRight="@dimen/normalLayoutMargin"
             android:background="@drawable/backgroundforlayouts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,12 +28,11 @@
                     android:src="@drawable/ic_water_glass"
                     android:contentDescription="@string/water"/>
             <TextView
-                    android:textSize="20sp"
+                    android:textSize="@dimen/headerOfTextSize"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/water"
                     android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
                     tools:ignore="RtlSymmetry"/>
         </LinearLayout>
         <LinearLayout
@@ -52,6 +53,7 @@
                     />
             <TextView
                     android:layout_width="0dp"
+                    android:textSize="@dimen/normalTextSize"
                     android:layout_height="wrap_content"
                     android:text="@string/glassPost"
                     android:layout_weight="1"/>

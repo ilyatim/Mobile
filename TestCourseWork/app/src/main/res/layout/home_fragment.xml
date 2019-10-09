@@ -13,6 +13,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
             <include layout="@layout/water_layout"/>
+            <include layout="@layout/period_of_activity_layout"/>
 
         </LinearLayout>
     </ScrollView>

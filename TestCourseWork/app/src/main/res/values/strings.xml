@@ -10,4 +10,7 @@
     <string name="startingValueOfWater">0</string>
     <string name="buttonToIncreaseDrunkWater">Кнопка для увеличения количества выпитой воды</string>
     <string name="buttonToDecreaseDrunkWater">Кнопка для уменьшения количества выпитой воды</string>
+    <string name="yourActivityText">Твоя активность</string>
+    <string name="numberOfSteps">кол-во шагов</string>
+    <string name="kilometrage">КМ</string>
 </resources>

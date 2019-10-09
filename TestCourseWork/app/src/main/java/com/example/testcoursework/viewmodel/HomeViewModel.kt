@@ -2,6 +2,7 @@ package com.example.testcoursework.viewmodel
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField
+import android.databinding.ObservableFloat
 import android.databinding.ObservableInt
 import android.util.Log
 import java.util.*
@@ -9,7 +10,7 @@ import java.util.*
 class HomeViewModel : ViewModel()
 {
     var countOfDunkWater = ObservableInt(0)
-    var coveredDistance = ObservableInt(0)
+    var coveredDistance = ObservableFloat(0.0f)
     var numberOfSteps = ObservableInt(0)
 
     fun increaseTheAmountOfWaterDrunk()
