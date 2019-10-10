@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@{Integer.toString(viewModel.numberOfSteps)}"/>
+                        android:text="@{String.valueOf(viewModel.numberOfSteps)}"/>
                 <TextView
                         android:textSize="@dimen/normalTextSize"
                         android:paddingStart="10dp"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         tools:ignore="RtlSymmetry"
-                        android:text="@{Float.toString(viewModel.coveredDistance)}"/>
+                        android:text="@{String.valueOf(viewModel.coveredDistance)}"/>
                 <TextView
                         android:textSize="@dimen/normalTextSize"
                         android:layout_width="wrap_content"

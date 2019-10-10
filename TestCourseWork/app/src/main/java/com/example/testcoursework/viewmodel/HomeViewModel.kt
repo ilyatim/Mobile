@@ -1,27 +1,26 @@
 package com.example.testcoursework.viewmodel
 
-import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
-import android.databinding.ObservableFloat
-import android.databinding.ObservableInt
 import android.util.Log
-import java.util.*
 
 class HomeViewModel : ViewModel()
 {
-    var countOfDunkWater = ObservableInt(0)
-    var coveredDistance = ObservableFloat(0.0f)
-    var numberOfSteps = ObservableInt(0)
+    val countOfDrunkWater = ObservableField<Int>(0)
+    val coveredDistance = ObservableField<Float>(0.0f)
+    val numberOfSteps = ObservableField<Int>(0)
+    val currentWeight = ObservableField<Float>(0.0f)
+
 
     fun increaseTheAmountOfWaterDrunk()
     {
-        Log.d("increase", "$countOfDunkWater")
-        countOfDunkWater.set(countOfDunkWater.get() + 1)
+        Log.d("increase", "${countOfDrunkWater.get()}")
+        countOfDrunkWater.set(countOfDrunkWater.get()?.plus(1))
     }
     fun decreaseTheAmountOfWaterDrunk()
     {
-        if(countOfDunkWater.get() > 0)
-            countOfDunkWater.set(countOfDunkWater.get() - 1)
+        if(countOfDrunkWater.get()!! > 0)
+            countOfDrunkWater.set(countOfDrunkWater.get()?.minus(1))
     }
     // TODO: Implement the ViewModel
 }

@@ -13,4 +13,6 @@
     <string name="yourActivityText">Твоя активность</string>
     <string name="numberOfSteps">кол-во шагов</string>
     <string name="kilometrage">КМ</string>
+    <string name="weightStringRes">Вес</string>
+    <string name="kilogramStringRes">КГ</string>
 </resources>

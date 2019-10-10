@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,6 @@ class HomeFragment : Fragment()
         fun newInstance() = HomeFragment()
     }
 
-
     private lateinit var binding: HomeFragmentBinding
     private lateinit var viewModel: HomeViewModel
 
@@ -31,12 +31,15 @@ class HomeFragment : Fragment()
         val view: View = binding.root
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
+        binding.executePendingBindings()
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?)
     {
         super.onActivityCreated(savedInstanceState)
+        viewModel.currentWeight.set(2.4f)
+        Log.d("onActivityCreated", "${viewModel.currentWeight.get()}")
         // TODO: Use the ViewModel
     }
 
