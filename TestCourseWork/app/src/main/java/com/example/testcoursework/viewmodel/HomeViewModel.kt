@@ -1,26 +1,42 @@
 package com.example.testcoursework.viewmodel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import android.databinding.ObservableFloat
+import android.databinding.ObservableInt
 import android.util.Log
+import com.example.testcoursework.data.Singleton
 
-class HomeViewModel : ViewModel()
+class HomeViewModel(app: Application): AndroidViewModel(app)
 {
-    val countOfDrunkWater = ObservableField<Int>(0)
-    val coveredDistance = ObservableField<Float>(0.0f)
-    val numberOfSteps = ObservableField<Int>(0)
-    val currentWeight = ObservableField<Float>(0.0f)
+    val countOfDrunkWater = ObservableInt(Singleton.personActivity.countOfDrunkWater)
+    val coveredDistance = ObservableFloat(Singleton.personActivity.coveredDistance)
+    val numberOfSteps = ObservableInt(Singleton.personActivity.numberOfSteps)
+    val currentWeight = ObservableFloat(Singleton.personActivity.currentWeight)
 
 
     fun increaseTheAmountOfWaterDrunk()
     {
-        Log.d("increase", "${countOfDrunkWater.get()}")
-        countOfDrunkWater.set(countOfDrunkWater.get()?.plus(1))
+        countOfDrunkWater.increment()
+        Singleton.personActivity.increaseWater()
     }
     fun decreaseTheAmountOfWaterDrunk()
     {
-        if(countOfDrunkWater.get()!! > 0)
-            countOfDrunkWater.set(countOfDrunkWater.get()?.minus(1))
+        if(countOfDrunkWater.get() > 0)
+        {
+            countOfDrunkWater.decrement()
+            Singleton.personActivity.decreaseWater()
+        }
+    }
+    private fun ObservableInt.increment()
+    {
+        set(get() + 1)
+    }
+    private fun ObservableInt.decrement()
+    {
+        set(get() - 1)
     }
     // TODO: Implement the ViewModel
 }

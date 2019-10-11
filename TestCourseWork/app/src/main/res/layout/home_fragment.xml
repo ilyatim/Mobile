@@ -12,20 +12,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <include layout="@layout/water_layout"
-                    bind:viewModel="@{viewModel}"/>
+
             <include layout="@layout/period_of_activity_layout"
-                    bind:viewModel="@{viewModel}"/>
+                     bind:viewModel="@{viewModel}"/>
+            <include layout="@layout/water_layout"
+                     bind:viewModel="@{viewModel}"/>
             <include layout="@layout/weight_layout"
-                    bind:viewModel="@{viewModel}"/>
-            <Button
-                    android:layout_margin="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/weightStringRes"
-                    android:background="@drawable/backgroundforlayouts"
-                    android:clickable="true"
-                    android:onClick="@{() -> viewModel.increaseTheAmountOfWaterDrunk()}"/>
+                     bind:viewModel="@{viewModel}"/>
+
         </LinearLayout>
     </ScrollView>
 </layout>

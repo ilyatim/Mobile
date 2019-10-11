@@ -11,18 +11,21 @@
             android:layout_marginTop="@dimen/normalLayoutMargin"
             android:layout_marginLeft="@dimen/normalLayoutMargin"
             android:layout_marginRight="@dimen/normalLayoutMargin"
+            android:layout_marginBottom="@dimen/normalLayoutMargin"
             android:background="@drawable/backgroundforlayouts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <LinearLayout
+                android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_handbag_weight_icon"
+                    android:src="@drawable/ic_bathroom_scale"
                     android:contentDescription="@string/weightStringRes"/>
             <TextView
+                    android:paddingStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/weightStringRes"

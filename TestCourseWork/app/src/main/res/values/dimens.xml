@@ -8,7 +8,7 @@
     <dimen name="normalTextSize">16sp</dimen>
 
     <!-- Default margin -->
-    <dimen name="normalLayoutMargin">10dp</dimen>
+    <dimen name="normalLayoutMargin">7dp</dimen>
 
     <!-- Default padding in layout -->
     <dimen name="normalLayoutPadding">20dp</dimen>
