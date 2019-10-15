@@ -15,4 +15,8 @@
     <string name="kilometrage">КМ</string>
     <string name="weightStringRes">Вес</string>
     <string name="kilogramStringRes">КГ</string>
+    <string name="progressStringRes">Достижения</string>
+    <string name="myProfileStringRes">Мой профиль</string>
+    <string name="myActivityReportStringRes">Отчет по моей активности</string>
+    <string name="informationStringRes">Сведения</string>
 </resources>

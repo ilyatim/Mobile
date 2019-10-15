@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui
 
+import android.content.Intent
 import android.databinding.BindingAdapter
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -15,11 +16,5 @@ object BindingAdapters
     @JvmStatic fun setClipToOutLine(imgBtn: ImageButton, boolean: Boolean)
     {
         imgBtn.clipToOutline = boolean
-    }
-
-    fun onClickIncrease()
-    {
-        Log.d("increase", "da")
-        Singleton.personActivity.increaseWater()
     }
 }

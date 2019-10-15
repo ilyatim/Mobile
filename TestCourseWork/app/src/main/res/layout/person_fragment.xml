@@ -1,12 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+            <variable name="viewModel" type="com.example.testcoursework.viewmodel.PersonViewModel"/>
     </data>
     <ScrollView
+            android:background="@color/grey"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:orientation="vertical"/>
+        <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <Button
+                    android:layout_marginLeft="@dimen/marginForButtonsLeftRight"
+                    android:layout_marginRight="@dimen/marginForButtonsLeftRight"
+                    android:padding="@dimen/normalButtonsPadding"
+                    android:onClick="@{() -> viewModel.onClick(1)}"
+                    android:drawableStart="@drawable/person_fragment_ic_trophy"
+                    android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                    android:layout_marginTop="@dimen/normalLayoutMargin"
+                    android:background="@drawable/backgroundforbuttons"
+                    android:textColor="@color/textColorBlack"
+                    android:text="@string/progressStringRes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <Button
+                    android:layout_marginLeft="@dimen/marginForButtonsLeftRight"
+                    android:layout_marginRight="@dimen/marginForButtonsLeftRight"
+                    android:padding="@dimen/normalButtonsPadding"
+                    android:onClick="@{() -> viewModel.onClick(2)}"
+                    android:drawableStart="@drawable/person_fragment_ic_resume"
+                    android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                    android:layout_marginTop="@dimen/normalLayoutMargin"
+                    android:background="@drawable/backgroundforbuttons"
+                    android:textColor="@color/textColorBlack"
+                    android:text="@string/myProfileStringRes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <Button
+                    android:layout_marginLeft="@dimen/marginForButtonsLeftRight"
+                    android:layout_marginRight="@dimen/marginForButtonsLeftRight"
+                    android:padding="@dimen/normalButtonsPadding"
+                    android:onClick="@{() -> viewModel.onClick(3)}"
+                    android:drawableStart="@drawable/person_fragment_ic_growth"
+                    android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                    android:layout_marginTop="@dimen/normalLayoutMargin"
+                    android:background="@drawable/backgroundforbuttons"
+                    android:textColor="@color/textColorBlack"
+                    android:text="@string/myActivityReportStringRes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <Button
+                    android:layout_marginLeft="@dimen/marginForButtonsLeftRight"
+                    android:layout_marginRight="@dimen/marginForButtonsLeftRight"
+                    android:padding="@dimen/normalButtonsPadding"
+                    android:onClick="@{() -> viewModel.onClick(4)}"
+                    android:drawableStart="@drawable/person_fragment_ic_information"
+                    android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                    android:layout_marginTop="@dimen/normalLayoutMargin"
+                    android:background="@drawable/backgroundforbuttons"
+                    android:textColor="@color/textColorBlack"
+                    android:text="@string/informationStringRes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
     </ScrollView>
 </layout>

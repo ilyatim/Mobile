@@ -24,6 +24,7 @@
                         android:src="@drawable/home_fragment_ic_running_man"
                         android:contentDescription="@string/yourActivityText"/>
                 <TextView
+                        android:textColor="@color/textColorBlack"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -41,6 +42,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"/>
                 <TextView
+                        android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/headerOfTextSize"
                         android:textStyle="bold"
                         android:id="@+id/currentStepsTextView"
@@ -57,6 +59,7 @@
                         android:layout_weight="0"
                         tools:ignore="RtlSymmetry"/>
                 <TextView
+                        android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         android:textSize="@dimen/normalTextSize"
                         android:paddingStart="10dp"

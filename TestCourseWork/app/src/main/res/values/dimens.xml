@@ -9,7 +9,11 @@
 
     <!-- Default margin -->
     <dimen name="normalLayoutMargin">7dp</dimen>
+    <dimen name="marginForButtonsLeftRight">4dp</dimen>
 
     <!-- Default padding in layout -->
     <dimen name="normalLayoutPadding">20dp</dimen>
+
+    <!-- Default padding for buttons in person fragment -->
+    <dimen name="normalButtonsPadding">5dp</dimen>
 </resources>
