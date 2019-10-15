@@ -21,7 +21,7 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_running_man"
+                        android:src="@drawable/home_fragment_ic_running_man"
                         android:contentDescription="@string/yourActivityText"/>
                 <TextView
                         android:layout_width="0dp"
@@ -86,7 +86,7 @@
                         android:progress="0"
                         android:layout_centerInParent="true"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:progressDrawable="@drawable/custom_progressbar"
+                        android:progressDrawable="@drawable/home_fragment_custom_progressbar"
                         android:secondaryProgress="0"/>
                 <TextView
                         android:id="@+id/txtProgress"

@@ -22,7 +22,7 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bathroom_scale"
+                    android:src="@drawable/home_fragment_ic_bathroom_scale"
                     android:contentDescription="@string/weightStringRes"/>
             <TextView
                     android:paddingStart="10dp"

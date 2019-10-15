@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+        <variable name="bindingAdapter"
+                  type="com.example.testcoursework.ui.BindingAdapters"/>
         <variable name="viewModel"
                   type="com.example.testcoursework.viewmodel.HomeViewModel"/>
     </data>
@@ -25,7 +27,7 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_water_glass"
+                    android:src="@drawable/home_fragment_ic_water_glass"
                     android:contentDescription="@string/water"/>
             <TextView
                     android:textStyle="bold"
@@ -59,23 +61,26 @@
                     android:text="@string/glassPost"
                     android:layout_weight="1"/>
             <ImageButton
+                    setClipToOutLine="@{true}"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:id="@+id/decreaseDrunkWaterImgBtn"
                     android:clickable="true"
                     android:onClick="@{()-> viewModel.decreaseTheAmountOfWaterDrunk()}"
                     android:background="@drawable/backgroundforview"
-                    android:paddingTop="10dp"
-                    android:layout_width="57dp"
-                    android:layout_height="66dp"
-                    android:src="@drawable/ic_minus_icon"
+                    android:src="@drawable/home_fragment_ic_minus"
                     android:contentDescription="@string/buttonToDecreaseDrunkWater"
                     android:focusable="true"/>
+            <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"/>
             <ImageButton
+                    setClipToOutLine="@{true}"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:clickable="true"
                     android:onClick="@{()-> viewModel.increaseTheAmountOfWaterDrunk()}"
-                    android:paddingTop="10dp"
-                    android:layout_width="57dp"
-                    android:layout_height="66dp"
-                    android:src="@drawable/ic_plus_icon"
+                    android:src="@drawable/home_fragment_ic_plus"
                     android:background="@drawable/backgroundforview"
                     android:contentDescription="@string/buttonToIncreaseDrunkWater"
                     android:focusable="true"/>
