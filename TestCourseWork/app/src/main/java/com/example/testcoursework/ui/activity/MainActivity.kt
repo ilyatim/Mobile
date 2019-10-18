@@ -1,18 +1,15 @@
 package com.example.testcoursework.ui.activity
 
-import android.annotation.SuppressLint
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
+import android.app.Activity
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.databinding.BindingAdapter
-import android.databinding.BindingMethod
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.example.testcoursework.R
 import com.example.testcoursework.data.PersonActivity
@@ -22,12 +19,35 @@ import com.example.testcoursework.ui.mFragment.HomeFragment
 import com.example.testcoursework.ui.mFragment.PersonFragment
 import com.example.testcoursework.ui.mFragment.WorkoutFragment
 import com.example.testcoursework.viewmodel.MyViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.request.DataReadRequest
+import com.google.android.gms.tasks.Task
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity()
 {
-    private val PERSON_ACTIVITY_STRING: String = "person_activity"
+    companion object
+    {
+        private val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1//System.identityHashCode(this).compareTo(0xFFFF)
+        private val LOG_TAG: String = "CheckMainActivity"
+        private val PERSON_ACTIVITY_STRING: String = "person_activity"
+    }
+
+
     private lateinit var pref: SharedPreferences
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fitnessOptions: FitnessOptions
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var mGoogleSignInAccount: GoogleSignInClient
+
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -48,6 +68,7 @@ class MainActivity : AppCompatActivity()
         return@OnNavigationItemSelectedListener true
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -59,25 +80,87 @@ class MainActivity : AppCompatActivity()
         {
             Singleton.personActivity = pref.getPersonActivityData(PERSON_ACTIVITY_STRING)
         }
-
-        Log.d("OnCreate", pref.contains(PERSON_ACTIVITY_STRING).toString())
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         binding.viewModel = viewModel
         binding.executePendingBindings()
         binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-
+        /*gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInAccount = GoogleSignIn.getClient(this, gso)
+        val signInIntent = mGoogleSignInAccount.signInIntent
+        startActivityForResult(signInIntent, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)*/
+        fitnessInit()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        if(requestCode == Activity.RESULT_OK)
+        {
+            if(requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+            {
+                //val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+                //handleSignInResult(task)
+                this.accessGoogleFit()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+    private fun fitnessInit()
+    {
+        fitnessOptions = FitnessOptions.builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .build()
+        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions))
+        {
+            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+        }
+        else
+        {
+            accessGoogleFit()
+        }
+    }
+    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int)
+    {
+        GoogleSignIn.requestPermissions(
+            this,
+            requestCode,
+            GoogleSignIn.getLastSignedInAccount(this),
+            fitnessOptions)
+    }
+    private fun accessGoogleFit()
+    {
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        val endTime = cal.timeInMillis
+        cal.add(Calendar.YEAR, -1)
+        val startTime = cal.timeInMillis
+
+        val readRequest = DataReadRequest.Builder()
+            .aggregate(DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA)
+            .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+            .bucketByTime(1, TimeUnit.DAYS)
+            .build()
+
+        GoogleSignIn.getLastSignedInAccount(this)?.let {
+            Fitness.getHistoryClient(this, it)
+                .readData(readRequest)
+                .addOnSuccessListener { Log.d(LOG_TAG, "onSuccess()"); }
+                .addOnFailureListener { e -> Log.e(LOG_TAG, "onFailure()", e); }
+                .addOnCompleteListener { Log.d(LOG_TAG, "onComplete()"); }
+        }
+    }
     override fun onDestroy()
     {
-        Log.d("OnDestroy", "work")
         val e = pref.edit()
         e.put(PERSON_ACTIVITY_STRING, Singleton.personActivity)
         e.apply()
         super.onDestroy()
     }
+
     private fun SharedPreferences.Editor.put(string: String, person: PersonActivity)
     {
         putString(string, "PersonActivity")

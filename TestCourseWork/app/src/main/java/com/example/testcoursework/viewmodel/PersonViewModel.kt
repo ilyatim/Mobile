@@ -1,8 +1,8 @@
 package com.example.testcoursework.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import android.content.Context
 import android.content.Intent
 import com.example.testcoursework.data.liveData.SingleLiveData

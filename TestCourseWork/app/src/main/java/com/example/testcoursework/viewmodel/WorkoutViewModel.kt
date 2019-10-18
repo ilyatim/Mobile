@@ -1,6 +1,6 @@
 package com.example.testcoursework.viewmodel
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 class WorkoutViewModel : ViewModel()
 {

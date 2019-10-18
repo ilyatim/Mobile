@@ -9,10 +9,12 @@
             android:layout_marginRight="@dimen/normalLayoutMargin"
             android:paddingStart="@dimen/normalLayoutPadding"
             android:paddingEnd="@dimen/normalLayoutPadding"
+            android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/backgroundforlayouts"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                     android:paddingTop="10dp"

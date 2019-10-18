@@ -4,6 +4,8 @@
         <variable name="viewModel" type="com.example.testcoursework.viewmodel.HomeViewModel"/>
     </data>
     <LinearLayout
+            android:clickable="true"
+            android:focusable="true"
             android:paddingStart="@dimen/normalLayoutPadding"
             android:paddingEnd="@dimen/normalLayoutPadding"
             android:paddingBottom="10dp"

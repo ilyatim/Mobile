@@ -1,11 +1,11 @@
 package com.example.testcoursework.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
-import android.databinding.ObservableFloat
-import android.databinding.ObservableInt
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableFloat
+import androidx.databinding.ObservableInt
 import android.util.Log
 import com.example.testcoursework.data.Singleton
 
