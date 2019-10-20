@@ -25,10 +25,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.FitnessActivities
 import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.HistoryClient
+import com.google.android.gms.fitness.data.DataSet
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.request.DataReadRequest
+import com.google.android.gms.fitness.result.DataReadResponse
 import com.google.android.gms.tasks.Task
+import org.koin.core.module.Module
+import org.koin.dsl.module
+import java.text.DateFormat.getTimeInstance
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -42,12 +49,12 @@ class MainActivity : AppCompatActivity()
     }
 
 
+    private lateinit var viewModel: MyViewModel
     private lateinit var pref: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
     private lateinit var gso: GoogleSignInOptions
     private lateinit var mGoogleSignInAccount: GoogleSignInClient
-
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -73,18 +80,17 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
 
+        loadData()
+
         supportFragmentManager.beginTransaction().add(R.id.fragment, HomeFragment()).commit()
 
-        pref = getSharedPreferences("com.example.testcoursework", Context.MODE_PRIVATE)
-        if(pref.contains(PERSON_ACTIVITY_STRING))
-        {
-            Singleton.personActivity = pref.getPersonActivityData(PERSON_ACTIVITY_STRING)
-        }
+        viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        binding.viewModel = viewModel
-        binding.executePendingBindings()
-        binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        binding.apply {
+            binding.viewModel = viewModel
+            binding.executePendingBindings()
+            binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        }
 
         /*gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -135,9 +141,17 @@ class MainActivity : AppCompatActivity()
     {
         val cal = Calendar.getInstance()
         cal.time = Date()
+
+        cal.set(Calendar.HOUR_OF_DAY, 23)
+        cal.set(Calendar.MINUTE, 59)
+        cal.set(Calendar.SECOND, 59)
         val endTime = cal.timeInMillis
-        cal.add(Calendar.YEAR, -1)
+
+        cal.set(Calendar.HOUR_OF_DAY, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
         val startTime = cal.timeInMillis
+
 
         val readRequest = DataReadRequest.Builder()
             .aggregate(DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA)
@@ -145,12 +159,30 @@ class MainActivity : AppCompatActivity()
             .bucketByTime(1, TimeUnit.DAYS)
             .build()
 
-        GoogleSignIn.getLastSignedInAccount(this)?.let {
+        val task = GoogleSignIn.getLastSignedInAccount(this)?.let {
             Fitness.getHistoryClient(this, it)
                 .readData(readRequest)
-                .addOnSuccessListener { Log.d(LOG_TAG, "onSuccess()"); }
+                .addOnSuccessListener {
+                    Log.d(LOG_TAG, "onSuccess()")
+                }
                 .addOnFailureListener { e -> Log.e(LOG_TAG, "onFailure()", e); }
                 .addOnCompleteListener { Log.d(LOG_TAG, "onComplete()"); }
+        }
+    }
+    private fun dumpDataSet(dataSet: DataSet)
+    {
+        Log.i(LOG_TAG, "Data returned for Data type: " + dataSet.dataType.name)
+
+        val dateFormat = getTimeInstance()
+
+        for (dp in dataSet.dataPoints) {
+            Log.i(LOG_TAG, "Data point:")
+            Log.i(LOG_TAG, "\tType: " + dp.dataType.name)
+            Log.i(LOG_TAG, "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)))
+            Log.i(LOG_TAG, "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)))
+            for (field in dp.dataType.fields) {
+                Log.i(LOG_TAG, "\tField: " + field.name + " Value: " + dp.getValue(field))
+            }
         }
     }
     override fun onDestroy()
@@ -159,6 +191,14 @@ class MainActivity : AppCompatActivity()
         e.put(PERSON_ACTIVITY_STRING, Singleton.personActivity)
         e.apply()
         super.onDestroy()
+    }
+    private fun loadData()
+    {
+        pref = getSharedPreferences("com.example.testcoursework", Context.MODE_PRIVATE)
+        if(pref.contains(PERSON_ACTIVITY_STRING))
+        {
+            Singleton.personActivity = pref.getPersonActivityData(PERSON_ACTIVITY_STRING)
+        }
     }
 
     private fun SharedPreferences.Editor.put(string: String, person: PersonActivity)

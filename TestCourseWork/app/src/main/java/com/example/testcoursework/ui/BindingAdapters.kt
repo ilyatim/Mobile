@@ -13,7 +13,7 @@ object BindingAdapters
 {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @BindingAdapter("setClipToOutLine")
-    @JvmStatic fun setClipToOutLine(imgBtn: ImageButton, boolean: Boolean)
+    @JvmStatic fun setClipToOutLine(imgBtn: View, boolean: Boolean)
     {
         imgBtn.clipToOutline = boolean
     }

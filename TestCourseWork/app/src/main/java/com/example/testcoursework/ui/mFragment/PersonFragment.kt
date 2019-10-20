@@ -48,8 +48,8 @@ class PersonFragment : Fragment()
             when (it) {
                 1 -> { context.startActivity(Intent(activity , ProgressActivity::class.java)) }
                 2 -> { context.startActivity(Intent(activity , ProfileActivity::class.java)) }
-                3 -> { context.startActivity(Intent(activity , InformationActivity::class.java)) }
-                4 -> { context.startActivity(Intent(activity , ReportActivity::class.java)) }
+                3 -> { context.startActivity(Intent(activity , ReportActivity::class.java)) }
+                4 -> { context.startActivity(Intent(activity , InformationActivity::class.java)) }
             }
         })
         // TODO: Use the ViewModel

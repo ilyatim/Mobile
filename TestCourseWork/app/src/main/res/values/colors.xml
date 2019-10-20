@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#ffff</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorPrimaryWhite">#ffff</color>
     <color name="colorAccent">#D5D3D2</color>
 
     <!-- color for background -->
     <color name="white">#ffff</color>
     <color name="grey">#E0DDDD</color>
     <color name="seaWave">#00FFFF</color>
+    <color name="purple">#7670d2</color>
 
     <!-- color for text -->
     <color name="textColorBlack">#000</color>

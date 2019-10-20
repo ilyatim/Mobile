@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activity.InformationActivity">
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+            <variable name="viewModel" type="com.example.testcoursework.viewmodel.InformationViewModel"/>
+    </data>
+    <LinearLayout
+            android:id="@+id/linearLayoutActivityInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.activity.InformationActivity"
+            android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="170dp"/>
+        <ImageView
+                setClipToOutLine="@{true}"
+                android:background="@drawable/backgroundforview"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_icon"/>
+        <TextView
+                android:layout_gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                android:textColor="@color/textColorBlack"
+                android:textSize="@dimen/headerOfTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:layout_gravity="center_horizontal"
+                android:text='@{"Версия: " + viewModel.appVersion}'
+                android:textColor="@color/textColorBlack"
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
