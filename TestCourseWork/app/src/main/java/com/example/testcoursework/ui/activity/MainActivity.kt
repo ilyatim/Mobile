@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.lifecycle.ViewModelProviders
 import android.content.Context
@@ -18,19 +19,22 @@ import com.example.testcoursework.databinding.ActivityMainBinding
 import com.example.testcoursework.ui.mFragment.HomeFragment
 import com.example.testcoursework.ui.mFragment.PersonFragment
 import com.example.testcoursework.ui.mFragment.WorkoutFragment
+import com.example.testcoursework.utils.swipeListener.OnSwipeTouchListener
 import com.example.testcoursework.viewmodel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessActivities
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.HistoryClient
-import com.google.android.gms.fitness.data.DataSet
-import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.data.*
 import com.google.android.gms.fitness.request.DataReadRequest
+import com.google.android.gms.fitness.request.SensorRequest
 import com.google.android.gms.fitness.result.DataReadResponse
 import com.google.android.gms.tasks.Task
 import org.koin.core.module.Module
@@ -48,13 +52,10 @@ class MainActivity : AppCompatActivity()
         private val PERSON_ACTIVITY_STRING: String = "person_activity"
     }
 
-
     private lateinit var viewModel: MyViewModel
     private lateinit var pref: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
-    private lateinit var gso: GoogleSignInOptions
-    private lateinit var mGoogleSignInAccount: GoogleSignInClient
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity()
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -92,12 +94,6 @@ class MainActivity : AppCompatActivity()
             binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         }
 
-        /*gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInAccount = GoogleSignIn.getClient(this, gso)
-        val signInIntent = mGoogleSignInAccount.signInIntent
-        startActivityForResult(signInIntent, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)*/
         fitnessInit()
     }
 
@@ -107,8 +103,6 @@ class MainActivity : AppCompatActivity()
         {
             if(requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
             {
-                //val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-                //handleSignInResult(task)
                 this.accessGoogleFit()
             }
         }
@@ -118,24 +112,37 @@ class MainActivity : AppCompatActivity()
     {
         fitnessOptions = FitnessOptions.builder()
             .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
             .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
             .build()
+
+        val scopeLocation = Scope(Scopes.FITNESS_LOCATION_READ_WRITE)
+        val scopeActivity = Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE)
+
         if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions))
         {
-            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE, scopeLocation, scopeActivity)
         }
         else
         {
             accessGoogleFit()
         }
     }
-    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int)
+    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int, scope1: Scope, scope2: Scope)
     {
         GoogleSignIn.requestPermissions(
             this,
             requestCode,
             GoogleSignIn.getLastSignedInAccount(this),
-            fitnessOptions)
+            scope1,
+            scope2)
+        GoogleSignIn.requestPermissions(
+            this,
+            requestCode,
+            GoogleSignIn.getLastSignedInAccount(this),
+            fitnessOptions
+        )
     }
     private fun accessGoogleFit()
     {
@@ -159,31 +166,51 @@ class MainActivity : AppCompatActivity()
             .bucketByTime(1, TimeUnit.DAYS)
             .build()
 
-        val task = GoogleSignIn.getLastSignedInAccount(this)?.let {
+        val result = GoogleSignIn.getLastSignedInAccount(this)?.let {
+            Fitness.getHistoryClient(this, it)
+                .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
+                .addOnCompleteListener {
+                    Log.d(LOG_TAG, it.result.toString())
+                    Log.d(LOG_TAG, it.result?.dataPoints.toString())
+                    Log.d(LOG_TAG, it.result?.dataType?.name)
+                    Log.d(LOG_TAG, it.result?.isEmpty.toString())
+                }
+        }
+        val request = GoogleSignIn.getLastSignedInAccount(this)?.let {
+            Fitness.getSensorsClient(this, it)
+        }
+        /*val task = GoogleSignIn.getLastSignedInAccount(this)?.let {
             Fitness.getHistoryClient(this, it)
                 .readData(readRequest)
                 .addOnSuccessListener {
                     Log.d(LOG_TAG, "onSuccess()")
                 }
                 .addOnFailureListener { e -> Log.e(LOG_TAG, "onFailure()", e); }
-                .addOnCompleteListener { Log.d(LOG_TAG, "onComplete()"); }
-        }
-    }
-    private fun dumpDataSet(dataSet: DataSet)
-    {
-        Log.i(LOG_TAG, "Data returned for Data type: " + dataSet.dataType.name)
+                .addOnCompleteListener { it ->
+                    Log.d(LOG_TAG, "onComplete()")
+                    Log.d(LOG_TAG, "onResult")
+                    Log.d(LOG_TAG, "" + it.result!!.buckets.size)
+                    for(bucket: Bucket in it.result!!.buckets)
+                    {
+                        val dataSets: List<DataSet> = bucket.dataSets
+                        for(dataSet: DataSet in dataSets)
+                        {
+                            Log.d(LOG_TAG, "dataSet.dataType: " + dataSet.dataType.name)
+                            for(dp: DataPoint in dataSet.dataPoints)
+                            {
+                                Log.d(LOG_TAG, "dp: $dp")
+                                for(field: Field in dp.dataType.fields)
+                                {
+                                    Log.d(LOG_TAG, "steps: ${dp.getValue(field).asInt()}")
+                                }
+                            }
+                        }
+                    }
+                }
+        }*/
+        /*if (task != null) {
 
-        val dateFormat = getTimeInstance()
-
-        for (dp in dataSet.dataPoints) {
-            Log.i(LOG_TAG, "Data point:")
-            Log.i(LOG_TAG, "\tType: " + dp.dataType.name)
-            Log.i(LOG_TAG, "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)))
-            Log.i(LOG_TAG, "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)))
-            for (field in dp.dataType.fields) {
-                Log.i(LOG_TAG, "\tField: " + field.name + " Value: " + dp.getValue(field))
-            }
-        }
+        }*/
     }
     override fun onDestroy()
     {
@@ -192,6 +219,8 @@ class MainActivity : AppCompatActivity()
         e.apply()
         super.onDestroy()
     }
+
+    //временные фукции для сохранения состояния
     private fun loadData()
     {
         pref = getSharedPreferences("com.example.testcoursework", Context.MODE_PRIVATE)
