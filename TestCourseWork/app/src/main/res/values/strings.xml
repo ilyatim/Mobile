@@ -20,4 +20,5 @@
     <string name="myActivityReportStringRes">Отчет по моей активности</string>
     <string name="informationStringRes">Сведения</string>
     <string name="app_icon">Иконка приложения</string>
+    <string name="calories">ккал</string>
 </resources>

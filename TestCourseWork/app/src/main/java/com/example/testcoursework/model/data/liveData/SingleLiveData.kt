@@ -1,4 +1,4 @@
-package com.example.testcoursework.data.liveData
+package com.example.testcoursework.model.data.liveData
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

@@ -1,22 +1,41 @@
 package com.example.testcoursework.viewmodel
 
-import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import android.content.Context
-import androidx.databinding.BindingAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import android.view.MenuItem
-import com.example.testcoursework.R
-import com.example.testcoursework.databinding.ActivityMainBinding
-import com.example.testcoursework.ui.mFragment.HomeFragment
-import com.example.testcoursework.ui.mFragment.PersonFragment
-import com.example.testcoursework.ui.mFragment.WorkoutFragment
+import android.util.Log
+import com.example.testcoursework.ui.activity.MainActivity
+import com.example.testcoursework.utils.googleAccount.GoogleAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.data.DataType
 
-class MyViewModel(app: Application) : AndroidViewModel(app)
+class MyViewModel(val app: Application) : AndroidViewModel(app)
 {
+    companion object {
+        private const val LOG_TAG: String = "ViewModel"
+    }
 
+    private var googleSignInAccount: GoogleSignInAccount? = null
+
+    init {
+        googleSignInAccount = GoogleAccount.getLastSignInAccount(app.baseContext)
+    }
+
+    fun accessGoogleFit()
+    {
+        googleSignInAccount?.let { it ->
+            Fitness.getRecordingClient(app.baseContext, it)
+                .subscribe(DataType.TYPE_STEP_COUNT_DELTA)
+                .addOnCompleteListener {
+                    if(it.isSuccessful)
+                    {
+                        Log.d(LOG_TAG, "SUCCESSFULLY")
+                    }
+                    else
+                    {
+                        Log.d(LOG_TAG, "THERE A PROBLEM - ${it.exception}")
+                    }
+                }
+        }
+    }
 }

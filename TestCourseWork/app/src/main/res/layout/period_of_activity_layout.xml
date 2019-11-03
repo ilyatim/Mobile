@@ -51,11 +51,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@{String.valueOf(viewModel.numberOfSteps)}"/>
+                        android:text="@{String.valueOf(viewModel.calories)}"/>
                 <TextView
                         android:textSize="@dimen/normalTextSize"
                         android:paddingStart="10dp"
-                        android:text="@string/numberOfSteps"
+                        android:text="@string/calories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -88,7 +88,7 @@
                         android:layout_height="200dp"
                         android:indeterminate="false"
                         android:max="10000"
-                        android:progress="500"
+                        android:progress="@{viewModel.numberOfSteps}"
                         android:layout_centerInParent="true"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:background="@drawable/home_fragment_custom_progress_bar_background"
