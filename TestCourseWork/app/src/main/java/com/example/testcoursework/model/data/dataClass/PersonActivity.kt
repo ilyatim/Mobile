@@ -1,17 +1,23 @@
 package com.example.testcoursework.model.data.dataClass
 
-data class PersonActivity(var countOfDrunkWater: Int,
-                          var coveredDistance: Float,
-                          var numberOfSteps: Int,
-                          var currentWeight: Float,
-                          var calories: Int)
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
+data class PersonActivity(var countOfDrunkWater: MutableLiveData<Int>,
+                          var coveredDistance: MutableLiveData<Float>,
+                          var numberOfSteps: MutableLiveData<Int>,
+                          var calories: MutableLiveData<Int>,
+                          val person: MutableLiveData<Person>)
 {
     fun increaseWater()
     {
-        countOfDrunkWater++
+        val value: Int = countOfDrunkWater.value!!
+        countOfDrunkWater.value = value + 1
     }
     fun decreaseWater()
     {
-        countOfDrunkWater--
+        val value: Int = countOfDrunkWater.value!!
+        countOfDrunkWater.value = value - 1
     }
 }

@@ -3,13 +3,12 @@ package com.example.testcoursework.ui.activity
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.ActivityInformationBinding
 import com.example.testcoursework.utils.swipeListener.OnSwipeTouchListener
-import com.example.testcoursework.viewmodel.InformationViewModel
+import com.example.testcoursework.viewModel.InformationViewModel
 
 class InformationActivity : AppCompatActivity()
 {

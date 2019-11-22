@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid
-        android:color="@color/white"/>
-    <corners
-        android:radius="25dp"/>
-</shape>
+<ripple
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:color="@color/colorAccent"
+tools:targetApi="lollipop">
+<item android:id="@android:id/mask">
+    <shape android:shape="rectangle">
+        <solid android:color="@color/colorAccent"/>
+        <corners android:radius="5dp"/>
+    </shape>
+</item>
+<item android:id="@android:id/background">
+    <shape >
+        <solid
+                android:color="@color/white"/>
+        <corners
+                android:radius="25dp"/>
+    </shape>
+</item>
+</ripple>

@@ -3,8 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools" >
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel"
-                  type="com.example.testcoursework.viewmodel.MyViewModel"/>
+        <variable name="viewModel" type="com.example.testcoursework.viewModel.MyViewModel"/>
     </data>
     <LinearLayout
             android:id="@+id/container"

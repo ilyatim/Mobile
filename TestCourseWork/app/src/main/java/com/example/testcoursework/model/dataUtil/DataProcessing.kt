@@ -5,10 +5,12 @@ import android.content.SharedPreferences
 import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.model.data.dataClass.PersonActivity
 import com.example.testcoursework.ui.activity.MainActivity
+import com.example.testcoursework.utils.googleAccount.GoogleAccount
 
 object DataProcessing
 {
     private const val PERSON_ACTIVITY_STRING: String = "person_activity"
+    private const val PERSON_GENDER: String = "gender"
     private var instance: SharedPreferences? = null
 
     fun getSharedPreferences(context: Context): SharedPreferences
@@ -20,39 +22,20 @@ object DataProcessing
 
     fun loadData(pref: SharedPreferences)
     {
-        if(pref.contains(PERSON_ACTIVITY_STRING))
+        var gender: String = "-"
+        if (pref.contains(PERSON_GENDER))
         {
-            Singleton.personActivity = pref.getPersonActivityData(PERSON_ACTIVITY_STRING)
+            gender = pref.getPersonGender(PERSON_GENDER)
         }
     }
     fun saveData(person: PersonActivity)
     {
         val e = instance?.edit()
-        e?.put(PERSON_ACTIVITY_STRING, person)
+        e?.putString( PERSON_GENDER, person.person.value?.gender?.value)
         e?.apply()
     }
-    private fun SharedPreferences.Editor.put(string: String, person: PersonActivity)
+    private fun SharedPreferences.getPersonGender(string: String): String
     {
-        putString(string, "PersonActivity")
-        putInt("Number_of_drunk_water_+$string", person.countOfDrunkWater)
-        putFloat("Covered_distance_+$string", person.coveredDistance)
-        putInt("Number_of_steps_+$string", person.numberOfSteps)
-        putFloat("Current_weight_+$string", person.currentWeight)
-        putInt("Current_calories_+$string", person.calories)
-    }
-    private fun SharedPreferences.getPersonActivityData(string: String): PersonActivity
-    {
-        val countOfDrunkWater = getInt("Number_of_drunk_water_+$string", 0)
-        val coveredDistance = getFloat("Covered_distance_+$string", 0.0f)
-        val numberOfSteps = getInt("Number_of_steps_+$string", 0)
-        val currentWeight = getFloat("Current_weight_+$string", 0.0f)
-        val currentCalories = getInt("Current_calories_+$string", 0)
-        return PersonActivity(
-            countOfDrunkWater,
-            coveredDistance,
-            numberOfSteps,
-            currentWeight,
-            currentCalories
-        )
+        return getString(PERSON_GENDER, "Non gender") ?: "Non gender"
     }
 }

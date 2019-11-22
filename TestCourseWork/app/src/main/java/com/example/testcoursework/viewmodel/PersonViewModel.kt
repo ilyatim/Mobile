@@ -1,4 +1,4 @@
-package com.example.testcoursework.viewmodel
+package com.example.testcoursework.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.example.testcoursework.model.data.liveData.SingleLiveData
@@ -11,5 +11,6 @@ class PersonViewModel : ViewModel()
     {
         uiEventLiveData.value = item
     }
+
     // TODO: Implement the ViewModel
 }

@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-            <variable name="viewModel" type="com.example.testcoursework.viewmodel.InformationViewModel"/>
+            <variable name="viewModel" type="com.example.testcoursework.viewModel.InformationViewModel"/>
     </data>
     <LinearLayout
             android:id="@+id/linearLayoutActivityInfo"

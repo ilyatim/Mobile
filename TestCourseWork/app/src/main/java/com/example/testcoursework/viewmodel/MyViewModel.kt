@@ -1,9 +1,8 @@
-package com.example.testcoursework.viewmodel
+package com.example.testcoursework.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import android.util.Log
-import com.example.testcoursework.ui.activity.MainActivity
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.fitness.Fitness
@@ -23,17 +22,39 @@ class MyViewModel(val app: Application) : AndroidViewModel(app)
 
     fun accessGoogleFit()
     {
+        subscribeStepCount()
+        subscribeCalories()
+    }
+    private fun subscribeCalories()
+    {
+        googleSignInAccount?.let { it ->
+            Fitness.getRecordingClient(app.baseContext, it)
+                .subscribe(DataType.TYPE_CALORIES_EXPENDED)
+                .addOnCompleteListener {
+                    if(it.isSuccessful)
+                    {
+                        Log.d(LOG_TAG, "SUCCESSFULLY - calories")
+                    }
+                    else
+                    {
+                        Log.d(LOG_TAG, "THERE A PROBLEM iN STEP COUNT - ${it.exception}")
+                    }
+                }
+        }
+    }
+    private fun subscribeStepCount()
+    {
         googleSignInAccount?.let { it ->
             Fitness.getRecordingClient(app.baseContext, it)
                 .subscribe(DataType.TYPE_STEP_COUNT_DELTA)
                 .addOnCompleteListener {
                     if(it.isSuccessful)
                     {
-                        Log.d(LOG_TAG, "SUCCESSFULLY")
+                        Log.d(LOG_TAG, "SUCCESSFULLY - step count")
                     }
                     else
                     {
-                        Log.d(LOG_TAG, "THERE A PROBLEM - ${it.exception}")
+                        Log.d(LOG_TAG, "THERE A PROBLEM iN STEP COUNT - ${it.exception}")
                     }
                 }
         }

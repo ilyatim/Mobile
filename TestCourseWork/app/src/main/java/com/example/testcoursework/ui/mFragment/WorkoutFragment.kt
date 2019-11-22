@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.testcoursework.R
-import com.example.testcoursework.viewmodel.WorkoutViewModel
+import com.example.testcoursework.viewModel.WorkoutViewModel
 
 
 class WorkoutFragment : Fragment()

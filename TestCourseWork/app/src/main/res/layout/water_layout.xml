@@ -4,7 +4,7 @@
         <variable name="bindingAdapter"
                   type="com.example.testcoursework.ui.BindingAdapters"/>
         <variable name="viewModel"
-                  type="com.example.testcoursework.viewmodel.HomeViewModel"/>
+                  type="com.example.testcoursework.viewModel.HomeViewModel"/>
     </data>
     <LinearLayout
             android:clickable="true"
@@ -55,8 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{String.valueOf(viewModel.countOfDrunkWater)}"
                     android:textSize="30sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold"/>
             <TextView
                     android:layout_width="0dp"
                     android:textSize="@dimen/normalTextSize"

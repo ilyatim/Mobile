@@ -21,4 +21,9 @@
     <string name="informationStringRes">Сведения</string>
     <string name="app_icon">Иконка приложения</string>
     <string name="calories">ккал</string>
+    <string name="yourSex">Ваш пол</string>
+    <string name="yourWeight">Ваш вес</string>
+    <string name="yourHeight">Ваш рост</string>
+    <string name="men">Мужской</string>
+    <string name="women">Женский</string>
 </resources>

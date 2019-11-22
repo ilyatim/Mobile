@@ -2,23 +2,21 @@ package com.example.testcoursework.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.example.testcoursework.R
-import com.example.testcoursework.model.data.dataClass.PersonActivity
-import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.databinding.ActivityMainBinding
+import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.model.dataUtil.DataProcessing
 import com.example.testcoursework.ui.mFragment.HomeFragment
 import com.example.testcoursework.ui.mFragment.PersonFragment
 import com.example.testcoursework.ui.mFragment.WorkoutFragment
-import com.example.testcoursework.viewmodel.MyViewModel
+import com.example.testcoursework.utils.googleAccount.GoogleAccount
+import com.example.testcoursework.viewModel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -79,15 +77,13 @@ class MainActivity : AppCompatActivity()
 
         viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.apply {
-            binding.viewModel = viewModel
-            binding.executePendingBindings()
-            binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        }
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+        binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         fitnessInit()
+        GoogleAccount.getPersonActivity(this)
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
         if(requestCode == Activity.RESULT_OK)
@@ -102,7 +98,6 @@ class MainActivity : AppCompatActivity()
     private fun fitnessInit()
     {
         fitnessOptions = com.example.testcoursework.utils.mFitness.Fitness.fitnessInit()
-
         if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions))
         {
             requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
@@ -121,10 +116,10 @@ class MainActivity : AppCompatActivity()
             fitnessOptions
         )
     }
-
     override fun onDestroy()
     {
         DataProcessing.saveData(Singleton.personActivity)
         super.onDestroy()
     }
+
 }
