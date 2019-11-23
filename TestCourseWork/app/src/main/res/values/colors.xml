@@ -4,7 +4,8 @@
     <color name="colorPrimaryWhite">#ffff</color>
     <color name="colorAccent">#D5D3D2</color>
 
-    <!-- color for background -->
+    <!-- custom -->
+    <color name="lightGreen">#6ff9ff</color>
     <color name="white">#ffff</color>
     <color name="grey">#E0DDDD</color>
     <color name="seaWave">#00FFFF</color>

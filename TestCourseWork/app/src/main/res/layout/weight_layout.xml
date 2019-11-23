@@ -44,7 +44,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{viewModel.currentWeight.get() == 0.0f ? "-.-" : String.valueOf(viewModel.currentWeight)}'/>
+                    android:text='@{viewModel.currentWeight == 0.0f ? "-.-" : String.valueOf(viewModel.currentWeight)}'/>
             <TextView
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"

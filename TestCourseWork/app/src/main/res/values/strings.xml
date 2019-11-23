@@ -26,4 +26,13 @@
     <string name="yourHeight">Ваш рост</string>
     <string name="men">Мужской</string>
     <string name="women">Женский</string>
+    <string name="anyGender">Неопределенно</string>
+    <string-array name="genders">
+        <item>Мужской</item>
+        <item>Женский</item>
+        <item>Неопределенно</item>
+    </string-array>
+    <string name="mContinue">Продолжить</string>
+    <string name="cancel">Отмена</string>
+    <string name="heightStringValue">СМ</string>
 </resources>

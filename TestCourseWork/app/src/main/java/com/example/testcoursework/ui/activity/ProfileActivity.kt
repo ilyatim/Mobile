@@ -1,17 +1,23 @@
 package com.example.testcoursework.ui.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.list.checkItem
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
+import com.afollestad.materialdialogs.list.toggleItemChecked
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.ActivityProfileBinding
 import com.example.testcoursework.model.data.Singleton
-import com.example.testcoursework.ui.dialog.ChangeGenderDialog
 import com.example.testcoursework.viewModel.ProfileViewModel
+import kotlinx.android.synthetic.main.number_picker_dialog.*
 
 class ProfileActivity : AppCompatActivity()
 {
@@ -21,7 +27,6 @@ class ProfileActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        viewModel.supportFragmentManager = supportFragmentManager
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.executePendingBindings()
@@ -29,7 +34,7 @@ class ProfileActivity : AppCompatActivity()
     }
     private fun observe()
     {
-        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Float> {
+        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Int> {
             viewModel.weight.set(it)
         })
         Singleton.personActivity.person.value?.height?.observe(this, Observer<Int> {
@@ -38,5 +43,66 @@ class ProfileActivity : AppCompatActivity()
         Singleton.personActivity.person.value?.gender?.observe(this, Observer<String> {
             viewModel.gender.set(it)
         })
+    }
+    fun changeGenderDialog(view: View)
+    {
+        MaterialDialog(this).show {
+            listItemsSingleChoice(R.array.genders) { dialog, index, text ->
+                Singleton.personActivity.person.value?.gender?.value = text.toString()
+            }
+            when(viewModel.gender.get())
+            {
+                context.getString(R.string.men) -> toggleItemChecked(0)
+                context.getString(R.string.women) -> toggleItemChecked(1)
+                context.getString(R.string.anyGender) -> toggleItemChecked(2)
+            }
+            cornerRadius(16f)
+            title(R.string.yourSex)
+            negativeButton(R.string.cancel)
+            positiveButton(R.string.mContinue)
+            with(window) {
+                this?.setGravity(Gravity.BOTTOM)
+                val layoutParams = window?.attributes
+                layoutParams?.y = 100
+                this?.attributes = layoutParams
+            }
+        }
+    }
+    fun changeWeightDialog(view: View) = createMaterialDialog(this, "weight")
+    fun changeHeightDialog(view: View) = createMaterialDialog(this, "height")
+
+    private fun createMaterialDialog(context: Context, param: String)
+    {
+        MaterialDialog(context).show {
+            cornerRadius(16f)
+            negativeButton(R.string.cancel)
+            customView(R.layout.number_picker_dialog)
+            with(window) {
+                this?.setGravity(Gravity.BOTTOM)
+                val layoutParams = window?.attributes
+                layoutParams?.y = 100
+                this?.attributes = layoutParams
+            }
+            with(numberPicker) {
+                maxValue = 300
+                minValue = 10
+                wrapSelectorWheel = false
+            }
+            when(param)
+            {
+                "height" -> {
+                    title(R.string.yourHeight)
+                    positiveButton(R.string.mContinue) { Singleton.personActivity.person.value?.height?.value = numberPicker.value }
+                    textView.text = context.getString(R.string.heightStringValue)
+                    numberPicker.value = viewModel.height.get()
+                }
+                "weight" -> {
+                    title(R.string.yourWeight)
+                    positiveButton(R.string.mContinue) { Singleton.personActivity.person.value?.weight?.value = numberPicker.value }
+                    textView.text = context.getString(R.string.kilogramStringRes)
+                    numberPicker.value = viewModel.weight.get()
+                }
+            }
+        }
     }
 }

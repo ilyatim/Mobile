@@ -26,7 +26,7 @@ class HomeViewModel(val app: Application): AndroidViewModel(app)
     val coveredDistance = ObservableFloat(Singleton.personActivity.coveredDistance.value!!)
     val numberOfSteps = ObservableField(Singleton.personActivity.numberOfSteps.value!!)
     val calories = ObservableField(Singleton.personActivity.calories.value!!)
-    val currentWeight = ObservableFloat(Singleton.personActivity.person.value?.weight?.value!!)
+    val currentWeight = ObservableInt(Singleton.personActivity.person.value?.weight?.value!!)
 
     companion object {
         private const val LOG_TAG: String = "ViewModel"
@@ -41,13 +41,5 @@ class HomeViewModel(val app: Application): AndroidViewModel(app)
         {
             Singleton.personActivity.decreaseWater()
         }
-    }
-    private fun ObservableInt.increment()
-    {
-        set(get() + 1)
-    }
-    private fun ObservableInt.decrement()
-    {
-        set(get() - 1)
     }
 }

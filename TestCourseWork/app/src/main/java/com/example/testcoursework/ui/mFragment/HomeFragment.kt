@@ -61,7 +61,7 @@ class HomeFragment : Fragment()
         Singleton.personActivity.numberOfSteps.observe(this, Observer<Int> {
             viewModel.numberOfSteps.set(it)
         })
-        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Float> {
+        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Int> {
             viewModel.currentWeight.set(it)
         })
     }

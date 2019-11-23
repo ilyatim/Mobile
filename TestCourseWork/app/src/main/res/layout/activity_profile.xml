@@ -14,7 +14,7 @@
                 android:id="@+id/genderLayout"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.changeGender()}"
+                android:onClick="changeGenderDialog"
                 android:background="@drawable/backgroundforbuttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,6 +48,7 @@
         <RelativeLayout
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="changeWeightDialog"
                 android:background="@drawable/backgroundforbuttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
         <RelativeLayout
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="changeHeightDialog"
                 android:background="@drawable/backgroundforbuttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:text="@{String.valueOf(viewModel.height)}"/>
+                    android:text="@{String.valueOf(viewModel.height) + ' ' + @string/heightStringValue}"/>
         </RelativeLayout>
     </LinearLayout>
 </layout>
