@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewModel" type="com.example.testcoursework.viewModel.HomeViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="135dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+        <com.loopeer.shadow.ShadowView
+
+                android:layout_width="135dp"
+                android:layout_height="170dp"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:backgroundColor="@color/calories_layout_background"
+                app:cornerRadius="12dp"
+                app:shadowColor="@color/shadow"
+                app:shadowDx="10"
+                app:shadowDy="10"
+                app:shadowMarginBottom="10dp"
+                app:shadowMarginRight="10dp"
+                app:shadowRadius="4dp">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="79dp"
+                        android:layout_marginBottom="114dp"
+                        android:background="@drawable/home_fragment_ic_calories" />
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="86dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="75dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginBottom="9dp">
+
+                    <TextView
+                            android:layout_width="107dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginEnd="19dp"
+                            android:layout_marginBottom="35dp"
+                            android:text="@string/calories2"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                    <TextView
+                            android:layout_width="54dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="11dp"
+                            android:layout_marginTop="57dp"
+                            android:layout_marginEnd="70dp"
+                            android:layout_marginBottom="9dp"
+                            android:text="@{String.valueOf(viewModel.calories)}"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:layout_width="58dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="71dp"
+                            android:layout_marginTop="60dp"
+                            android:layout_marginEnd="6dp"
+                            android:text="@string/calories"
+                            android:textColor="@color/white" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </com.loopeer.shadow.ShadowView>
+    </LinearLayout>
+</layout>

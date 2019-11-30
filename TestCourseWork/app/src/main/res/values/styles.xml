@@ -11,11 +11,24 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryWhite</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryWhite</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+    <style name="some_id">
+        <item name="android:textSize">
+            14sp
+        </item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">
+            0.01
+        </item>
+        <item name="android:textColor">
+            #FFFEFE
+        </item>
+    </style>
+
 
 </resources>

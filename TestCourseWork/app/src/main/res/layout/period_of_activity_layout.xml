@@ -1,110 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="com.example.testcoursework.viewModel.HomeViewModel"/>
     </data>
-    <LinearLayout
-            android:layout_marginTop="@dimen/normalLayoutMargin"
-            android:layout_marginLeft="@dimen/normalLayoutMargin"
-            android:layout_marginRight="@dimen/normalLayoutMargin"
-            android:paddingStart="@dimen/normalLayoutPadding"
-            android:paddingEnd="@dimen/normalLayoutPadding"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/backgroundforlayouts"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
 
-            <LinearLayout
-                    android:paddingTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/home_fragment_ic_running_man"
-                        android:contentDescription="@string/yourActivityText"/>
-                <TextView
-                        android:textColor="@color/textColorBlack"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/yourActivityText"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textStyle="bold"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <Space
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp">
+        <com.loopeer.shadow.ShadowView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true" android:focusable="true"
+                android:elevation="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:backgroundColor="@color/period_of_activity_background"
+                app:cornerRadius="28dp"
+                app:shadowColor="@color/shadow"
+                app:shadowMargin="10dp"
+                app:shadowRadius="50dp">
+                <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-                <TextView
-                        android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textStyle="bold"
-                        android:id="@+id/currentStepsTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="@{String.valueOf(viewModel.calories)}"/>
-                <TextView
-                        android:textSize="@dimen/normalTextSize"
-                        android:paddingStart="10dp"
-                        android:text="@string/calories"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        tools:ignore="RtlSymmetry"/>
-                <TextView
-                        android:textColor="@color/textColorBlack"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/normalTextSize"
-                        android:paddingStart="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        tools:ignore="RtlSymmetry"
-                        android:text="@{String.valueOf(viewModel.coveredDistance)}"/>
-                <TextView
-                        android:textSize="@dimen/normalTextSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:paddingStart="10dp"
-                        android:text="@string/kilometrage"
-                        tools:ignore="RtlSymmetry"/>
-            </LinearLayout>
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <ProgressBar
-                        android:id="@+id/progressBar"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:indeterminate="false"
-                        android:max="10000"
-                        android:progress="@{viewModel.numberOfSteps}"
-                        android:layout_centerInParent="true"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:background="@drawable/home_fragment_custom_progress_bar_background"
-                        android:progressDrawable="@drawable/home_fragment_custom_progress_bar_progress_drawable"
-                        android:secondaryProgress="0"/>
-                <TextView
-                        android:id="@+id/txtProgress"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorBlack"
-                        android:text='@{String.valueOf(viewModel.numberOfSteps) + "/10000"}'
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/progressBar"
-                        android:layout_centerInParent="true"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-            </RelativeLayout>
+                        android:layout_height="match_parent">
+                    <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="147dp"
+                            android:layout_height="147dp"
+                            android:indeterminate="false"
+                            android:layout_centerInParent="true"
+                            android:max="10000"
+                            android:progress="@{viewModel.numberOfSteps}"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:background="@drawable/home_fragment_custom_progress_bar_background"
+                            android:progressDrawable="@drawable/home_fragment_custom_progress_bar_progress_drawable"/>
+
+                    <TextView
+                            android:layout_width="114dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text='@{String.valueOf(viewModel.numberOfSteps) + "/10000 шагов"}'
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/normalTextSize"
+                            android:textStyle="bold" />
+                </RelativeLayout>
+        </com.loopeer.shadow.ShadowView>
     </LinearLayout>
 </layout>

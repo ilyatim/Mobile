@@ -2,8 +2,10 @@ package com.example.testcoursework.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
@@ -18,6 +20,9 @@ import com.example.testcoursework.ui.mFragment.WorkoutFragment
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.GoogleApi
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -83,6 +88,8 @@ class MainActivity : AppCompatActivity()
 
         fitnessInit()
         GoogleAccount.getPersonActivity(this)
+
+        Log.d("MyMainActivity", GoogleSignIn.getLastSignedInAccount(this)?.displayName.toString())
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
@@ -94,6 +101,16 @@ class MainActivity : AppCompatActivity()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+    private fun initGoogleDate()
+    {
+        //TODO сделать отображение ImageView и корректное возвращение имени пользователя
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestProfile()
+            .build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
     }
     private fun fitnessInit()
     {

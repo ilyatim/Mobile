@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryDark">#000</color>
-    <color name="colorPrimaryWhite">#ffff</color>
+    <color name="colorPrimaryWhite">#ffffff</color>
     <color name="colorAccent">#D5D3D2</color>
 
     <!-- custom -->
     <color name="lightGreen">#6ff9ff</color>
-    <color name="white">#ffff</color>
+    <color name="white">#ffffff</color>
     <color name="grey">#E0DDDD</color>
     <color name="seaWave">#00FFFF</color>
     <color name="purple">#7670d2</color>
+    <color name="progress_bar_background">#AAE7F0</color>
+
+    <!-- color for background -->
+    <color name="period_of_activity_background">#799EB0</color>
+    <color name="water_layout_background">#9F559F</color>
+    <color name="water_layout_button_background">#2C405A</color>
+    <color name="steps_layout_background">#F5AF5B</color>
+    <color name="distance_layout_background">#F55B5B</color>
+    <color name="calories_layout_background">#5B74F5</color>
+    <color name="weight_layout_background">#5F52A6</color>
+
+    <!-- color for shadow -->
+    <color name="shadow">#40000000</color>
 
     <!-- color for text -->
     <color name="textColorBlack">#000</color>

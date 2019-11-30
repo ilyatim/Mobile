@@ -21,6 +21,7 @@
     <string name="informationStringRes">Сведения</string>
     <string name="app_icon">Иконка приложения</string>
     <string name="calories">ккал</string>
+    <string name="calories2">Калории</string>
     <string name="yourSex">Ваш пол</string>
     <string name="yourWeight">Ваш вес</string>
     <string name="yourHeight">Ваш рост</string>
@@ -35,4 +36,8 @@
     <string name="mContinue">Продолжить</string>
     <string name="cancel">Отмена</string>
     <string name="heightStringValue">СМ</string>
+    <string name="addStringRes">Добавить</string>
+    <string name="steps">Шаги</string>
+    <string name="steps2">Шаг.</string>
+    <string name="distance">Расстояние</string>
 </resources>
