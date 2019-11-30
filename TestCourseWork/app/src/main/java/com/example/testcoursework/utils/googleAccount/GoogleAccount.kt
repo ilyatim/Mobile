@@ -1,6 +1,7 @@
 package com.example.testcoursework.utils.googleAccount
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.viewModel.HomeViewModel
@@ -101,4 +102,12 @@ object GoogleAccount
             }
         }
     }
+    fun getPersonInfo(context: Context)
+    {
+        Singleton.personActivity.person.value?.name?.value = getName(context)
+        Singleton.personActivity.person.value?.photoUrl?.value = getPhotoUrl(context)
+    }
+    private fun getName(context: Context): String? = instance?.givenName
+
+    private fun getPhotoUrl(context: Context): Uri? = instance?.photoUrl
 }

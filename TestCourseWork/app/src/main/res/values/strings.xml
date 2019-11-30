@@ -40,4 +40,6 @@
     <string name="steps">Шаги</string>
     <string name="steps2">Шаг.</string>
     <string name="distance">Расстояние</string>
+    <string name="hello">Привет</string>
+    <string name="yourImageRes">Твое изображение</string>
 </resources>

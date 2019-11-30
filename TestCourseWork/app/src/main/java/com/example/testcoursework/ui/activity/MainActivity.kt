@@ -2,7 +2,6 @@ package com.example.testcoursework.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,23 +19,25 @@ import com.example.testcoursework.ui.mFragment.WorkoutFragment
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.GoogleApi
-import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity()
-{
+class MainActivity : AppCompatActivity() {
     companion object {
         private var currentFragment: Int = -1
         private const val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1//System.identityHashCode(this).compareTo(0xFFFF)
+        private const val GOOGLE_PROFILE_PERMISSION_REQUEST_CODE = 2//
         private const val LOG_TAG: String = "CheckMainActivity"
     }
 
     private lateinit var viewModel: MyViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
+
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -89,7 +90,9 @@ class MainActivity : AppCompatActivity()
         fitnessInit()
         GoogleAccount.getPersonActivity(this)
 
-        Log.d("MyMainActivity", GoogleSignIn.getLastSignedInAccount(this)?.displayName.toString())
+        GoogleAccount.getPersonInfo(this)
+
+        initGoogleProfilePermission()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
@@ -99,18 +102,19 @@ class MainActivity : AppCompatActivity()
             {
                 viewModel.accessGoogleFit()
             }
+            if(requestCode == GOOGLE_PROFILE_PERMISSION_REQUEST_CODE)
+            {
+                Log.d("MyActivity", GoogleAccount.getLastSignInAccount(this)?.email)
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-    private fun initGoogleDate()
+    private fun initGoogleProfilePermission()
     {
-        //TODO сделать отображение ImageView и корректное возвращение имени пользователя
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestProfile()
-            .build()
-        val mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
-
+        if(!GoogleSignIn.hasPermissions(GoogleAccount.getLastSignInAccount(this), Scope(Scopes.PROFILE)))
+        {
+            GoogleSignIn.requestPermissions(this, GOOGLE_PROFILE_PERMISSION_REQUEST_CODE, GoogleSignIn.getLastSignedInAccount(this), Scope(Scopes.PROFILE))
+        }
     }
     private fun fitnessInit()
     {

@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui.mFragment
 
+import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
@@ -49,6 +50,12 @@ class HomeFragment : Fragment()
 
     private fun observe()
     {
+        Singleton.personActivity.person.value?.name?.observe(this, Observer<String?> {
+            viewModel.name.set(it)
+        })
+        Singleton.personActivity.person.value?.photoUrl?.observe(this, Observer<Uri?> {
+            viewModel.photoUrl.set(it)
+        })
         Singleton.personActivity.calories.observe(this, Observer<Int> {
             viewModel.calories.set(it)
         })
@@ -68,6 +75,7 @@ class HomeFragment : Fragment()
     override fun onResume()
     {
         GoogleAccount.retry(context!!)
+        Log.d(LOG_TAG, "${viewModel.name.get()} + ${viewModel.photoUrl.get()}")
         super.onResume()
     }
 }

@@ -27,6 +27,8 @@ class HomeViewModel(val app: Application): AndroidViewModel(app)
     val numberOfSteps = ObservableField(Singleton.personActivity.numberOfSteps.value!!)
     val calories = ObservableField(Singleton.personActivity.calories.value!!)
     val currentWeight = ObservableInt(Singleton.personActivity.person.value?.weight?.value!!)
+    val name = ObservableField(Singleton.personActivity.person.value?.name?.value)
+    val photoUrl = ObservableField(Singleton.personActivity.person.value?.photoUrl?.value)
 
     companion object {
         private const val LOG_TAG: String = "ViewModel"
