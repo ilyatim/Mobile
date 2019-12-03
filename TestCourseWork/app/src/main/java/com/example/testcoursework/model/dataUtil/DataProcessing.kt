@@ -3,6 +3,7 @@ package com.example.testcoursework.model.dataUtil
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.testcoursework.model.data.Singleton
+import com.example.testcoursework.model.data.dataClass.Person
 import com.example.testcoursework.model.data.dataClass.PersonActivity
 import com.example.testcoursework.ui.activity.MainActivity
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
@@ -28,10 +29,10 @@ object DataProcessing
             gender = pref.getPersonGender(PERSON_GENDER)
         }
     }
-    fun saveData(person: PersonActivity)
+    fun saveData(person: Person)
     {
         val e = instance?.edit()
-        e?.putString( PERSON_GENDER, person.person.value?.gender?.value)
+        e?.putString( PERSON_GENDER, person.gender.value)
         e?.apply()
     }
     private fun SharedPreferences.getPersonGender(string: String): String

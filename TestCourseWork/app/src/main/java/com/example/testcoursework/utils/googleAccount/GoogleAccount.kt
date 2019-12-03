@@ -102,12 +102,18 @@ object GoogleAccount
             }
         }
     }
-    fun getPersonInfo(context: Context)
+    fun getPersonInfo()
     {
-        Singleton.personActivity.person.value?.name?.value = getName(context)
-        Singleton.personActivity.person.value?.photoUrl?.value = getPhotoUrl(context)
+        Singleton.person.name.value = getName()
+        Singleton.person.photoUrl.value = getPhotoUrl()
+        Singleton.person.email.value = getEmail()
+        Singleton.person.fullName.value = getFullName()
     }
-    private fun getName(context: Context): String? = instance?.givenName
+    private fun getName(): String? = instance?.givenName
 
-    private fun getPhotoUrl(context: Context): Uri? = instance?.photoUrl
+    private fun getPhotoUrl(): Uri? = instance?.photoUrl
+
+    private fun getFullName(): String? = instance?.displayName
+
+    private fun getEmail(): String? = instance?.email
 }

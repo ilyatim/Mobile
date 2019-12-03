@@ -5,7 +5,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
@@ -37,8 +39,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         when(item.itemId)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home -> {
                 if(currentFragment != 1)
                 {
-                    transaction.replace(R.id.fragment, HomeFragment())
+                    transaction.replace(R.id.fragment, HomeFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 1
                     transaction.commit()
                 }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_workout -> {
                 if(currentFragment != 2)
                 {
-                    transaction.replace(R.id.fragment, WorkoutFragment())
+                    transaction.replace(R.id.fragment, WorkoutFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 2
                     transaction.commit()
                 }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_about_me -> {
                 if(currentFragment != 3)
                 {
-                    transaction.replace(R.id.fragment, PersonFragment())
+                    transaction.replace(R.id.fragment, PersonFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 3
                     transaction.commit()
                 }
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         fitnessInit()
         GoogleAccount.getPersonActivity(this)
 
-        GoogleAccount.getPersonInfo(this)
+        GoogleAccount.getPersonInfo()
 
         initGoogleProfilePermission()
     }
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
             if(requestCode == GOOGLE_PROFILE_PERMISSION_REQUEST_CODE)
             {
-                Log.d("MyActivity", GoogleAccount.getLastSignInAccount(this)?.email)
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -113,7 +113,10 @@ class MainActivity : AppCompatActivity() {
     {
         if(!GoogleSignIn.hasPermissions(GoogleAccount.getLastSignInAccount(this), Scope(Scopes.PROFILE)))
         {
-            GoogleSignIn.requestPermissions(this, GOOGLE_PROFILE_PERMISSION_REQUEST_CODE, GoogleSignIn.getLastSignedInAccount(this), Scope(Scopes.PROFILE))
+            GoogleSignIn.requestPermissions(this,
+                GOOGLE_PROFILE_PERMISSION_REQUEST_CODE,
+                GoogleSignIn.getLastSignedInAccount(this),
+                Scope(Scopes.PROFILE))
         }
     }
     private fun fitnessInit()
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onDestroy()
     {
-        DataProcessing.saveData(Singleton.personActivity)
+        DataProcessing.saveData(Singleton.person)
         super.onDestroy()
     }
 

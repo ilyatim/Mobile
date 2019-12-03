@@ -17,7 +17,7 @@
     <string name="kilogramStringRes">КГ</string>
     <string name="progressStringRes">Достижения</string>
     <string name="myProfileStringRes">Мой профиль</string>
-    <string name="myActivityReportStringRes">Отчет по моей активности</string>
+    <string name="myActivityReportStringRes">Отчет</string>
     <string name="informationStringRes">Сведения</string>
     <string name="app_icon">Иконка приложения</string>
     <string name="calories">ккал</string>
@@ -42,4 +42,6 @@
     <string name="distance">Расстояние</string>
     <string name="hello">Привет</string>
     <string name="yourImageRes">Твое изображение</string>
+    <string name="historyOfUrTrainings">История ваших тренировок</string>
+    <string name="historyOfUrEx">История ваших упражнений</string>
 </resources>

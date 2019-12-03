@@ -19,7 +19,7 @@ import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.viewModel.ProfileViewModel
 import kotlinx.android.synthetic.main.number_picker_dialog.*
 
-class ProfileActivity : AppCompatActivity()
+class   ProfileActivity : AppCompatActivity()
 {
     private lateinit var viewModel: ProfileViewModel
     private lateinit var binding: ActivityProfileBinding
@@ -34,13 +34,13 @@ class ProfileActivity : AppCompatActivity()
     }
     private fun observe()
     {
-        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Int> {
+        Singleton.person.weight.observe(this, Observer<Int> {
             viewModel.weight.set(it)
         })
-        Singleton.personActivity.person.value?.height?.observe(this, Observer<Int> {
+        Singleton.person.height.observe(this, Observer<Int> {
             viewModel.height.set(it)
         })
-        Singleton.personActivity.person.value?.gender?.observe(this, Observer<String> {
+        Singleton.person.gender.observe(this, Observer<String> {
             viewModel.gender.set(it)
         })
     }
@@ -48,7 +48,7 @@ class ProfileActivity : AppCompatActivity()
     {
         MaterialDialog(this).show {
             listItemsSingleChoice(R.array.genders) { dialog, index, text ->
-                Singleton.personActivity.person.value?.gender?.value = text.toString()
+                Singleton.person.gender.value = text.toString()
             }
             when(viewModel.gender.get())
             {
@@ -92,13 +92,13 @@ class ProfileActivity : AppCompatActivity()
             {
                 "height" -> {
                     title(R.string.yourHeight)
-                    positiveButton(R.string.mContinue) { Singleton.personActivity.person.value?.height?.value = numberPicker.value }
+                    positiveButton(R.string.mContinue) { Singleton.person.height.value = numberPicker.value }
                     textView.text = context.getString(R.string.heightStringValue)
                     numberPicker.value = viewModel.height.get()
                 }
                 "weight" -> {
                     title(R.string.yourWeight)
-                    positiveButton(R.string.mContinue) { Singleton.personActivity.person.value?.weight?.value = numberPicker.value }
+                    positiveButton(R.string.mContinue) { Singleton.person.weight.value = numberPicker.value }
                     textView.text = context.getString(R.string.kilogramStringRes)
                     numberPicker.value = viewModel.weight.get()
                 }

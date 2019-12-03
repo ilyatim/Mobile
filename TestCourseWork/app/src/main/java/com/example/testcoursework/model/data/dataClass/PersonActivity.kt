@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-data class PersonActivity(var countOfDrunkWater: MutableLiveData<Int>,
-                          var coveredDistance: MutableLiveData<Float>,
-                          var numberOfSteps: MutableLiveData<Int>,
-                          var calories: MutableLiveData<Int>,
-                          val person: MutableLiveData<Person>)
+class PersonActivity
 {
+    val countOfDrunkWater: MutableLiveData<Int> = MutableLiveData(0)
+    val coveredDistance: MutableLiveData<Float> = MutableLiveData(0f)
+    val numberOfSteps: MutableLiveData<Int> = MutableLiveData(0)
+    val calories: MutableLiveData<Int> =MutableLiveData(0)
     fun increaseWater()
     {
         val value: Int = countOfDrunkWater.value!!

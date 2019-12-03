@@ -6,7 +6,7 @@
 
     <!-- custom -->
     <color name="lightGreen">#6ff9ff</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="grey">#E0DDDD</color>
     <color name="seaWave">#00FFFF</color>
     <color name="purple">#7670d2</color>
@@ -20,6 +20,11 @@
     <color name="distance_layout_background">#F55B5B</color>
     <color name="calories_layout_background">#5B74F5</color>
     <color name="weight_layout_background">#5F52A6</color>
+    <color name="top_bar_background">#332C62</color>
+    <color name="progress_card_background">#00A488</color>
+    <color name="profile_card_background">#78BD8F</color>
+    <color name="report_card_background">#3667A4</color>
+    <color name="info_card_background">#9F559F</color>
 
     <!-- color for shadow -->
     <color name="shadow">#40000000</color>

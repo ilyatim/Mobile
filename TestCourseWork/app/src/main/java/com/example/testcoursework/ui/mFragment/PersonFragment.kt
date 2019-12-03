@@ -9,28 +9,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.PersonFragmentBinding
+import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.ui.activity.*
 import com.example.testcoursework.viewModel.PersonViewModel
 
 
 class PersonFragment : Fragment()
 {
-
-    companion object {
-        fun newInstance() = PersonFragment()
-    }
-
     private lateinit var binding: PersonFragmentBinding
     private lateinit var viewModel: PersonViewModel
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
         viewModel = ViewModelProviders.of(this).get(PersonViewModel::class.java)
+        activity?.window?.apply {
+            decorView.systemUiVisibility = 0
+            statusBarColor = getColor(context, R.color.top_bar_background)
+        }
         binding = DataBindingUtil.inflate(inflater, R.layout.person_fragment, container, false)
         val view: View = binding.root
         binding.viewModel = viewModel
@@ -38,7 +39,6 @@ class PersonFragment : Fragment()
         binding.executePendingBindings()
         return view
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?)
     {
         super.onActivityCreated(savedInstanceState)
@@ -51,7 +51,12 @@ class PersonFragment : Fragment()
                 4 -> { context.startActivity(Intent(activity , InformationActivity::class.java)) }
             }
         })
-        // TODO: Use the ViewModel
+        Singleton.person.fullName.observe(this, Observer {
+            viewModel.fullName.set(it)
+        })
+        Singleton.person.email.observe(this, Observer {
+            viewModel.email.set(it)
+        })
     }
 
 }

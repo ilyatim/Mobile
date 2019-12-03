@@ -4,11 +4,14 @@ import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.system.Os
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.HomeFragmentBinding
@@ -21,7 +24,6 @@ class HomeFragment : Fragment()
 {
     companion object {
         private const val LOG_TAG = "HomeFragmentTag"
-        fun newInstance() = HomeFragment()
     }
     private lateinit var binding: HomeFragmentBinding
     private lateinit var viewModel: HomeViewModel
@@ -31,7 +33,12 @@ class HomeFragment : Fragment()
         savedInstanceState: Bundle?
     ): View?
     {
+        activity?.window?.apply {
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = getColor(context, R.color.white)
+        }
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
+
         val view: View = binding.root
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         observe()
@@ -45,15 +52,14 @@ class HomeFragment : Fragment()
     override fun onActivityCreated(savedInstanceState: Bundle?)
     {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
     }
 
     private fun observe()
     {
-        Singleton.personActivity.person.value?.name?.observe(this, Observer<String?> {
+        Singleton.person.name.observe(this, Observer<String?> {
             viewModel.name.set(it)
         })
-        Singleton.personActivity.person.value?.photoUrl?.observe(this, Observer<Uri?> {
+        Singleton.person.photoUrl.observe(this, Observer<Uri?> {
             viewModel.photoUrl.set(it)
         })
         Singleton.personActivity.calories.observe(this, Observer<Int> {
@@ -68,14 +74,13 @@ class HomeFragment : Fragment()
         Singleton.personActivity.numberOfSteps.observe(this, Observer<Int> {
             viewModel.numberOfSteps.set(it)
         })
-        Singleton.personActivity.person.value?.weight?.observe(this, Observer<Int> {
+        Singleton.person.weight.observe(this, Observer<Int> {
             viewModel.currentWeight.set(it)
         })
     }
     override fun onResume()
     {
         GoogleAccount.retry(context!!)
-        Log.d(LOG_TAG, "${viewModel.name.get()} + ${viewModel.photoUrl.get()}")
         super.onResume()
     }
 }
