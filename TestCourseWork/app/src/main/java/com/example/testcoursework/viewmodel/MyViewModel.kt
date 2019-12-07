@@ -14,11 +14,7 @@ class MyViewModel(val app: Application) : AndroidViewModel(app)
         private const val LOG_TAG: String = "ViewModel"
     }
 
-    private var googleSignInAccount: GoogleSignInAccount? = null
-
-    init {
-        googleSignInAccount = GoogleAccount.getLastSignInAccount(app.baseContext)
-    }
+    private val googleSignInAccount: GoogleSignInAccount? = GoogleAccount.getLastSignInAccount(app.baseContext)
 
     fun accessGoogleFit()
     {

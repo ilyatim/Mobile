@@ -6,6 +6,7 @@
     <!-- Default Text Size -->
     <dimen name="headerOfTextSize">20sp</dimen>
     <dimen name="normalTextSize">16sp</dimen>
+    <dimen name="eighteenSpTextSize">18sp</dimen>
 
     <!-- Default margin -->
     <dimen name="normalLayoutMargin">4dp</dimen>

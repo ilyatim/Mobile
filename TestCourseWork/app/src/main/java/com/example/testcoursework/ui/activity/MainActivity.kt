@@ -2,18 +2,24 @@ package com.example.testcoursework.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
+import com.afollestad.materialdialogs.list.toggleItemChecked
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.ActivityMainBinding
 import com.example.testcoursework.model.data.Singleton
+import com.example.testcoursework.model.data.enumClass.Gender
 import com.example.testcoursework.model.dataUtil.DataProcessing
 import com.example.testcoursework.ui.mFragment.HomeFragment
 import com.example.testcoursework.ui.mFragment.PersonFragment
@@ -21,11 +27,12 @@ import com.example.testcoursework.ui.mFragment.WorkoutFragment
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.number_picker_dialog.*
+import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -34,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         private const val GOOGLE_PROFILE_PERMISSION_REQUEST_CODE = 2//
         private const val LOG_TAG: String = "CheckMainActivity"
     }
-
     private lateinit var viewModel: MyViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
@@ -88,11 +94,10 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         fitnessInit()
-        GoogleAccount.getPersonActivity(this)
-
-        GoogleAccount.getPersonInfo()
-
         initGoogleProfilePermission()
+        GoogleAccount.getPersonActivity(this)
+        GoogleAccount.getPersonInfo()
+        Log.d(LOG_TAG, Singleton.person.gender.value?.value)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
@@ -146,4 +151,74 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    fun changeGenderDialog(view: View)
+    {
+        MaterialDialog(this).show {
+            listItemsSingleChoice(R.array.genders) { dialog, index, text ->
+                when(index)
+                {
+                    0 -> Singleton.person.gender.value = Gender.MEN
+                    1 -> Singleton.person.gender.value = Gender.WOMEN
+                    2 -> Singleton.person.gender.value = Gender.OTHER
+                }
+            }
+            when(Singleton.person.gender.value)
+            {
+                Gender.MEN -> toggleItemChecked(0)
+                Gender.WOMEN -> toggleItemChecked(1)
+                Gender.OTHER -> toggleItemChecked(2)
+            }
+            cornerRadius(16f)
+            title(R.string.yourSex)
+            negativeButton(R.string.cancel)
+            positiveButton(R.string.mContinue)
+            with(window) {
+                this?.setGravity(Gravity.BOTTOM)
+                val layoutParams = window?.attributes
+                layoutParams?.y = 100
+                this?.attributes = layoutParams
+            }
+        }
+    }
+    fun changeWeightDialog(view: View) = createMaterialDialog(this, "weight")
+    fun changeHeightDialog(view: View) = createMaterialDialog(this, "height")
+
+    private fun createMaterialDialog(context: Context, param: String)
+    {
+        MaterialDialog(context).show {
+            cornerRadius(16f)
+            negativeButton(R.string.cancel)
+            customView(R.layout.number_picker_dialog)
+            with(window) {
+                this?.setGravity(Gravity.BOTTOM)
+                val layoutParams = window?.attributes
+                layoutParams?.y = 100
+                this?.attributes = layoutParams
+            }
+            with(numberPicker) {
+                maxValue = 250
+                when(param)
+                {
+                    "height" -> minValue = 70
+                    "weight" -> minValue = 30
+                }
+                wrapSelectorWheel = false
+            }
+            when(param)
+            {
+                "height" -> {
+                    title(R.string.yourHeight)
+                    positiveButton(R.string.mContinue) { Singleton.person.height.value = numberPicker.value }
+                    textView.text = context.getString(R.string.heightStringValue)
+                    numberPicker.value = Singleton.person.height.value!!
+                }
+                "weight" -> {
+                    title(R.string.yourWeight)
+                    positiveButton(R.string.mContinue) { Singleton.person.weight.value = numberPicker.value }
+                    textView.text = context.getString(R.string.kilogramStringRes)
+                    numberPicker.value = Singleton.person.weight.value!!
+                }
+            }
+        }
+    }
 }

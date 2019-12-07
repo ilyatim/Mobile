@@ -5,15 +5,17 @@
     <data>
             <variable name="viewModel" type="com.example.testcoursework.viewModel.PersonViewModel"/>
     </data>
+
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
         <com.loopeer.shadow.ShadowView
+                android:id="@+id/personInfoView"
                 android:layout_width="match_parent"
                 android:layout_height="155dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:clickable="true"
                 android:elevation="10dp"
                 android:focusable="true"
@@ -21,7 +23,6 @@
                 app:backgroundColor="@color/top_bar_background"
                 app:cornerRadiusBL="34dp"
                 app:cornerRadiusBR="34dp"
-                app:shadowMarginBottom="10dp"
                 app:shadowColor="@color/shadow"
                 app:shadowRadius="10dp">
 
@@ -30,10 +31,11 @@
                     android:layout_height="144dp">
 
                 <com.loopeer.shadow.ShadowView
-                        android:layout_marginStart="50dp"
-                        android:layout_gravity="center_vertical"
+                        android:id="@+id/profileImagePersonFragment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="50dp"
                         android:clickable="false"
                         android:elevation="10dp"
                         android:foreground="?attr/selectableItemBackground"
@@ -52,65 +54,70 @@
                             android:contentDescription="@string/yourImageRes"
                             android:visibility="visible" />
                 </com.loopeer.shadow.ShadowView>
-                 <LinearLayout
-                         android:layout_gravity="center_vertical"
-                         android:layout_marginStart="10dp"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:orientation="vertical">
 
-                     <TextView
-                             android:id="@+id/textView3"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:text='@{viewModel.fullName.get() != null ? viewModel.fullName.get() : "-"}'
-                             android:textColor="@color/white"
-                             android:textSize="@dimen/headerOfTextSize" />
+                <LinearLayout
+                        android:id="@+id/linearLayoutPersonInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical">
 
-                     <TextView
-                             android:id="@+id/textView4"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:text='@{viewModel.email.get() != null ? viewModel.email.get() : "-"}'
-                             android:textColor="@color/white" />
-                 </LinearLayout>
+                    <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.fullName.get() != null ? viewModel.fullName.get() : "-"}'
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/headerOfTextSize" />
+
+                    <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text='@{viewModel.email.get() != null ? viewModel.email.get() : "-"}'
+                            android:textColor="@color/white" />
+                </LinearLayout>
 
             </LinearLayout>
 
         </com.loopeer.shadow.ShadowView>
 
         <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:orientation="horizontal">
+
             <com.loopeer.shadow.ShadowView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:onClick="@{() -> viewModel.onClick(1)}"
                     android:layout_height="match_parent"
-                    android:clickable="true" android:focusable="true"
+                    android:layout_weight="1"
+                    android:clickable="true"
                     android:elevation="10dp"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.onClick(1)}"
                     app:backgroundColor="@color/progress_card_background"
                     app:cornerRadius="15dp"
+                    app:shadowColor="@color/shadow"
                     app:shadowDx="10"
                     app:shadowDy="10"
-                    app:shadowColor="@color/shadow"
                     app:shadowMargin="10dp"
                     app:shadowRadius="4dp">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_gravity="center"
-                            android:drawableTop="@drawable/person_fragment_ic_trophy"
-                            android:textSize="@dimen/headerOfTextSize"
-                            android:textColor="@color/white"
-                            android:drawablePadding="20dp"
-                            android:textAlignment="center"
-                            android:text="@string/progressStringRes"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/person_fragment_ic_trophy"
+                        android:drawablePadding="20dp"
+                        android:text="@string/progressStringRes"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/headerOfTextSize"
+                        android:textStyle="bold"
+                        app:layout_gravity="center" />
             </com.loopeer.shadow.ShadowView>
-            <com.loopeer.shadow.ShadowView
+            <!--<com.loopeer.shadow.ShadowView
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:onClick="@{() -> viewModel.onClick(2)}"
@@ -136,64 +143,152 @@
                         android:drawablePadding="20dp"
                         android:textAlignment="center"
                         android:text="@string/myProfileStringRes"/>
-            </com.loopeer.shadow.ShadowView>
+            </com.loopeer.shadow.ShadowView>-->
         </LinearLayout>
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:orientation="horizontal">
+
             <com.loopeer.shadow.ShadowView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:onClick="@{() -> viewModel.onClick(3)}"
                     android:layout_height="match_parent"
-                    android:clickable="true" android:focusable="true"
+                    android:layout_weight="1"
+                    android:clickable="true"
                     android:elevation="10dp"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.onClick(3)}"
                     app:backgroundColor="@color/report_card_background"
                     app:cornerRadius="15dp"
+                    app:shadowColor="@color/shadow"
                     app:shadowDx="10"
                     app:shadowDy="10"
-                    app:shadowColor="@color/shadow"
                     app:shadowMargin="10dp"
                     app:shadowRadius="4dp">
+
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_gravity="center"
                         android:drawableTop="@drawable/person_fragment_ic_growth"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"
                         android:drawablePadding="20dp"
-                        android:text="@string/myActivityReportStringRes"/>
+                        android:text="@string/myActivityReportStringRes"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/headerOfTextSize"
+                        android:textStyle="bold"
+                        app:layout_gravity="center" />
             </com.loopeer.shadow.ShadowView>
+
             <com.loopeer.shadow.ShadowView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:onClick="@{() -> viewModel.onClick(4)}"
                     android:layout_height="match_parent"
-                    android:clickable="true" android:focusable="true"
+                    android:layout_weight="1"
+                    android:clickable="true"
                     android:elevation="10dp"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.onClick(4)}"
                     app:backgroundColor="@color/info_card_background"
                     app:cornerRadius="15dp"
+                    app:shadowColor="@color/shadow"
                     app:shadowDx="10"
                     app:shadowDy="10"
-                    app:shadowColor="@color/shadow"
                     app:shadowMargin="10dp"
                     app:shadowRadius="4dp">
+
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_gravity="center"
                         android:drawableTop="@drawable/person_fragment_ic_support"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textColor="@color/white"
                         android:drawablePadding="20dp"
+                        android:text="@string/informationStringRes"
                         android:textAlignment="center"
-                        android:text="@string/informationStringRes"/>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/headerOfTextSize"
+                        android:textStyle="bold"
+                        app:layout_gravity="center" />
             </com.loopeer.shadow.ShadowView>
         </LinearLayout>
+
+        <com.loopeer.shadow.ShadowView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:backgroundColor="@color/profile_card_background"
+                app:cornerRadius="15dp"
+                app:shadowColor="@color/shadow"
+                app:shadowDx="10"
+                app:shadowDy="10"
+                app:shadowMargin="10dp"
+                app:shadowRadius="4dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/myProfileData"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/headerOfTextSize" />
+                <TextView
+                        android:onClick="changeGenderDialog"
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/eighteenSpTextSize"
+                        android:clickable="true" android:focusable="true"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/clickfortextview"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:drawableStart="@drawable/person_fragment_ic_symbol"
+                        android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                        android:text="@{@string/gender(viewModel.gender)}"/>
+                <TextView
+                        android:onClick="changeWeightDialog"
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/eighteenSpTextSize"
+                        android:clickable="true" android:focusable="true"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/clickfortextview"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:drawableStart="@drawable/person_fragment_ic_bathroom_scale"
+                        android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                        android:text="@{@string/weight(String.valueOf(viewModel.weight))}"/>
+                <TextView
+                        android:onClick="changeHeightDialog"
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/eighteenSpTextSize"
+                        android:clickable="true" android:focusable="true"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/clickfortextview"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:drawableStart="@drawable/person_fragment_ic_height"
+                        android:drawableEnd="@drawable/person_fragment_ic_right_chevron"
+                        android:layout_marginBottom="20dp"
+                        android:text="@{@string/height(String.valueOf(viewModel.height))}"/>
+            </LinearLayout>
+        </com.loopeer.shadow.ShadowView>
     </LinearLayout>
 </layout>

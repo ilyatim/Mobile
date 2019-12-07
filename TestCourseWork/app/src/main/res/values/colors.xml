@@ -9,7 +9,7 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#E0DDDD</color>
     <color name="seaWave">#00FFFF</color>
-    <color name="purple">#7670d2</color>
+    <color name="purple">#332C62</color>
     <color name="progress_bar_background">#AAE7F0</color>
 
     <!-- color for background -->
@@ -22,9 +22,10 @@
     <color name="weight_layout_background">#5F52A6</color>
     <color name="top_bar_background">#332C62</color>
     <color name="progress_card_background">#00A488</color>
-    <color name="profile_card_background">#78BD8F</color>
+    <color name="profile_card_background">#BB4AF0</color>
     <color name="report_card_background">#3667A4</color>
-    <color name="info_card_background">#9F559F</color>
+    <color name="info_card_background">#F5807F</color>
+    <color name="floating_action_button_background">#5B74F5</color>
 
     <!-- color for shadow -->
     <color name="shadow">#40000000</color>

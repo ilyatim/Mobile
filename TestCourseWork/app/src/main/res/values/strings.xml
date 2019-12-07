@@ -16,6 +16,7 @@
     <string name="weightStringRes">Вес</string>
     <string name="kilogramStringRes">КГ</string>
     <string name="progressStringRes">Достижения</string>
+    <string name="myProfileData">Мои данные</string>
     <string name="myProfileStringRes">Мой профиль</string>
     <string name="myActivityReportStringRes">Отчет</string>
     <string name="informationStringRes">Сведения</string>
@@ -27,11 +28,11 @@
     <string name="yourHeight">Ваш рост</string>
     <string name="men">Мужской</string>
     <string name="women">Женский</string>
-    <string name="anyGender">Неопределенно</string>
+    <string name="anyGender">Не указано</string>
     <string-array name="genders">
         <item>Мужской</item>
         <item>Женский</item>
-        <item>Неопределенно</item>
+        <item>Не указывать</item>
     </string-array>
     <string name="mContinue">Продолжить</string>
     <string name="cancel">Отмена</string>
@@ -44,4 +45,9 @@
     <string name="yourImageRes">Твое изображение</string>
     <string name="historyOfUrTrainings">История ваших тренировок</string>
     <string name="historyOfUrEx">История ваших упражнений</string>
+    <string name="weight">Текущий вес - %s кг</string>
+    <string name="height">Текущий рост - %s см</string>
+    <string name="gender">Пол - %s</string>
+    <string name="statistics">Статистика</string>
+    <string name="left_chevron">Left chevron</string>
 </resources>

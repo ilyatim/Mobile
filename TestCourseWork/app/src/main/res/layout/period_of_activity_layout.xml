@@ -36,11 +36,13 @@
                             android:layout_centerInParent="true"
                             android:max="10000"
                             android:progress="@{viewModel.numberOfSteps}"
+                            android:animationResolution="100"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:background="@drawable/home_fragment_custom_progress_bar_background"
                             android:progressDrawable="@drawable/home_fragment_custom_progress_bar_progress_drawable"/>
 
                     <TextView
+                            android:id="@+id/stepsInProgressBar"
                             android:layout_width="114dp"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"

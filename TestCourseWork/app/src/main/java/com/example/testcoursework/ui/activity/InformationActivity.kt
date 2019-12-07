@@ -24,19 +24,5 @@ class InformationActivity : AppCompatActivity()
         viewModel = ViewModelProviders.of(this).get(InformationViewModel::class.java)
         binding.viewModel = viewModel
         binding.executePendingBindings()
-        binding.linearLayoutActivityInfo.setOnTouchListener(object : OnSwipeTouchListener(applicationContext) {
-            override fun onSwipeTop() { super.onSwipeTop() }
-            override fun onSwipeBottom() { super.onSwipeBottom() }
-            override fun onSwipeLeft() { super.onSwipeLeft() }
-            override fun onSwipeRight()
-            {
-                finish()
-                super.onSwipeRight()
-            }
-        })
-
-        supportActionBar?.apply {
-            setTitle(R.string.informationStringRes)
-        }
     }
 }

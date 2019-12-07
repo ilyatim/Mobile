@@ -19,7 +19,7 @@ import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.viewModel.ProfileViewModel
 import kotlinx.android.synthetic.main.number_picker_dialog.*
 
-class   ProfileActivity : AppCompatActivity()
+class ProfileActivity : AppCompatActivity()
 {
     private lateinit var viewModel: ProfileViewModel
     private lateinit var binding: ActivityProfileBinding
@@ -30,9 +30,9 @@ class   ProfileActivity : AppCompatActivity()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.executePendingBindings()
-        observe()
+        //observe()
     }
-    private fun observe()
+    /*private fun observe()
     {
         Singleton.person.weight.observe(this, Observer<Int> {
             viewModel.weight.set(it)
@@ -40,8 +40,8 @@ class   ProfileActivity : AppCompatActivity()
         Singleton.person.height.observe(this, Observer<Int> {
             viewModel.height.set(it)
         })
-        Singleton.person.gender.observe(this, Observer<String> {
-            viewModel.gender.set(it)
+        Singleton.person.gender.observe(this, Observer {
+            viewModel.gender.set(it.name)
         })
     }
     fun changeGenderDialog(view: View)
@@ -104,5 +104,5 @@ class   ProfileActivity : AppCompatActivity()
                 }
             }
         }
-    }
+    }*/
 }

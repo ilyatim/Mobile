@@ -2,9 +2,11 @@ package com.example.testcoursework.model.dataUtil
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.model.data.dataClass.Person
 import com.example.testcoursework.model.data.dataClass.PersonActivity
+import com.example.testcoursework.model.data.enumClass.Gender
 import com.example.testcoursework.ui.activity.MainActivity
 import com.example.testcoursework.utils.googleAccount.GoogleAccount
 
@@ -23,20 +25,19 @@ object DataProcessing
 
     fun loadData(pref: SharedPreferences)
     {
-        var gender: String = "-"
-        if (pref.contains(PERSON_GENDER))
+        if(pref.contains(PERSON_GENDER))
         {
-            gender = pref.getPersonGender(PERSON_GENDER)
+            Singleton.person.gender.value =  Gender.valueOf(pref.getPersonGender(PERSON_GENDER))
         }
     }
     fun saveData(person: Person)
     {
         val e = instance?.edit()
-        e?.putString( PERSON_GENDER, person.gender.value)
+        e?.putString( PERSON_GENDER, person.gender.value?.name)
         e?.apply()
     }
     private fun SharedPreferences.getPersonGender(string: String): String
     {
-        return getString(PERSON_GENDER, "Non gender") ?: "Non gender"
+        return getString(PERSON_GENDER, "Не указано") ?: "Не указано"
     }
 }

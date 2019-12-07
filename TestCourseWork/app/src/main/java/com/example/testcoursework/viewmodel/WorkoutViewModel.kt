@@ -1,8 +1,9 @@
 package com.example.testcoursework.viewModel
 
-import androidx.lifecycle.ViewModel;
+import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 
 class WorkoutViewModel : ViewModel()
 {
-    // TODO: Implement the ViewModel
+    val visibility = ObservableField<Boolean>(false)
 }
