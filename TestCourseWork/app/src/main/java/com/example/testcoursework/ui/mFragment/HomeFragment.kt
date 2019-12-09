@@ -21,20 +21,20 @@ import com.example.testcoursework.utils.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.HomeViewModel
 
 
-class HomeFragment : Fragment()
-{
+class HomeFragment : Fragment() {
     companion object {
         private const val LOG_TAG = "HomeFragmentTag"
     }
+
     private var firstInit = true
     private lateinit var binding: HomeFragmentBinding
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
-    {
+    ): View? {
         activity?.window?.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = getColor(context, R.color.white)
@@ -47,14 +47,15 @@ class HomeFragment : Fragment()
         binding.executePendingBindings()
         return view
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         observe()
         super.onActivityCreated(savedInstanceState)
     }
-
-    private fun observe()
-    {
+    override fun onResume() {
+        GoogleAccount.retry(context!!)
+        super.onResume()
+    }
+    private fun observe() {
         Singleton.person.name.observe(this, Observer {
             viewModel.name.set(it)
         })
@@ -81,11 +82,5 @@ class HomeFragment : Fragment()
             val lastValue = viewModel.currentWeight.get()
             viewModel.animateTextView(binding.weightLayout.weight, lastValue, it)
         })
-    }
-
-    override fun onResume()
-    {
-        GoogleAccount.retry(context!!)
-        super.onResume()
     }
 }

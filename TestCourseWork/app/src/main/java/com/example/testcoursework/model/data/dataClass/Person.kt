@@ -4,8 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.testcoursework.model.data.enumClass.Gender
 
-class Person
-{
+class Person {
     var gender: MutableLiveData<Gender> = MutableLiveData(Gender.OTHER)
     var height: MutableLiveData<Int> = MutableLiveData<Int>(0)
     var weight: MutableLiveData<Int> = MutableLiveData<Int>(0)

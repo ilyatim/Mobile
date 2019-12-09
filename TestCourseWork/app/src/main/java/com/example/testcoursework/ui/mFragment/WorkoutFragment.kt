@@ -15,16 +15,15 @@ import com.example.testcoursework.databinding.WorkoutFragmentBinding
 import com.example.testcoursework.viewModel.WorkoutViewModel
 
 
-class WorkoutFragment : Fragment()
-{
+class WorkoutFragment : Fragment() {
     private lateinit var binding: WorkoutFragmentBinding
     private lateinit var viewModel: WorkoutViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
-    {
+    ): View? {
         viewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
         activity?.window?.apply {
             decorView.systemUiVisibility = 0
@@ -38,29 +37,29 @@ class WorkoutFragment : Fragment()
         binding.executePendingBindings()
         return view
     }
-    private fun createAnimation()
-    {
-        shadowViewAnim()
-    }
-    private fun shadowViewAnim()
-    {
-        val anim = AnimationUtils.loadAnimation(context, R.anim.lowering_curtain_workout_fragment)
-        anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(animation: Animation?)
-            {
-                binding.historyTextView.alpha = 0f
-            }
-            override fun onAnimationEnd(animation: Animation?)
-            {
-                binding.historyTextView.animate().alpha(1f).setDuration(1000).setListener(null)
-            }
-            override fun onAnimationStart(animation: Animation?) {}
-        })
-        binding.historyOfTrainingView.startAnimation(anim)
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
+    }
+    private fun createAnimation() {
+        shadowViewAnim()
+    }
+    private fun shadowViewAnim() {
+        val anim = AnimationUtils.loadAnimation(context, R.anim.lowering_curtain_workout_fragment)
+        anim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {
+                binding.historyTextView.alpha = 0f
+            }
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.historyTextView.animate()
+                        .alpha(1f)
+                        .setDuration(1000)
+                        .setListener(null)
+            }
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+        })
+        binding.historyOfTrainingView.startAnimation(anim)
     }
 }

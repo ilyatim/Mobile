@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.testcoursework.model.data.Singleton
 import com.example.testcoursework.model.data.liveData.SingleLiveData
 
-class PersonViewModel : ViewModel()
-{
+class PersonViewModel : ViewModel() {
     val email = ObservableField(Singleton.person.email.value)
     val fullName = ObservableField(Singleton.person.fullName.value)
     val gender = ObservableField<String>(Singleton.person.gender.value?.value)
@@ -15,9 +14,7 @@ class PersonViewModel : ViewModel()
     val height = ObservableInt(Singleton.person.height.value!!)
     val uiEventLiveData = SingleLiveData<Int>()
 
-    fun onClick(item: Int)
-    {
+    fun onClick(item: Int) {
         uiEventLiveData.value = item
     }
-
 }

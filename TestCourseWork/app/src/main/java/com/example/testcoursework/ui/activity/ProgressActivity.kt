@@ -5,17 +5,13 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.testcoursework.R
-import com.example.testcoursework.databinding.ActivityProfileBinding
 import com.example.testcoursework.databinding.ActivityProgressBinding
 import com.example.testcoursework.viewModel.ProgressActivityViewModel
 
-class ProgressActivity : AppCompatActivity()
-{
-
+class ProgressActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProgressBinding
     private lateinit var viewModel: ProgressActivityViewModel
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_progress)
         viewModel = ViewModelProviders.of(this).get(ProgressActivityViewModel::class.java)

@@ -3,10 +3,8 @@ package com.example.testcoursework.utils.mFitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 
-object Fitness
-{
-    fun fitnessInit(): FitnessOptions
-    {
+object Fitness {
+    fun fitnessInit(): FitnessOptions {
         return FitnessOptions.builder()
             .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
             .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)

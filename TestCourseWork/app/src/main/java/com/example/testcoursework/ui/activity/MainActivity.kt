@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
@@ -32,6 +35,7 @@ import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.number_picker_dialog.*
+import java.util.jar.Manifest
 import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
@@ -39,36 +43,37 @@ class MainActivity : AppCompatActivity() {
         private var currentFragment: Int = -1
         private const val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1//System.identityHashCode(this).compareTo(0xFFFF)
         private const val GOOGLE_PROFILE_PERMISSION_REQUEST_CODE = 2//
+        private const val DANGEROUS_PERMISSION_REQUEST_CODE = 3//
         private const val LOG_TAG: String = "CheckMainActivity"
     }
     private lateinit var viewModel: MyViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var fitnessOptions: FitnessOptions
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private val onNavigationItemSelectedListener =
+            BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        when(item.itemId)
-        {
-            R.id.navigation_home -> {
-                if(currentFragment != 1)
-                {
-                    transaction.replace(R.id.fragment, HomeFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        when(item.itemId) {
+            R.id.navigation_home     -> {
+                if (currentFragment != 1) {
+                    transaction.replace(R.id.fragment, HomeFragment())
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 1
                     transaction.commit()
                 }
             }
-            R.id.navigation_workout -> {
-                if(currentFragment != 2)
-                {
-                    transaction.replace(R.id.fragment, WorkoutFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            R.id.navigation_workout  -> {
+                if (currentFragment != 2) {
+                    transaction.replace(R.id.fragment, WorkoutFragment())
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 2
                     transaction.commit()
                 }
             }
             R.id.navigation_about_me -> {
-                if(currentFragment != 3)
-                {
-                    transaction.replace(R.id.fragment, PersonFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                if (currentFragment != 3) {
+                    transaction.replace(R.id.fragment, PersonFragment())
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     currentFragment = 3
                     transaction.commit()
                 }
@@ -76,11 +81,8 @@ class MainActivity : AppCompatActivity() {
         }
         return@OnNavigationItemSelectedListener true
     }
-
-
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         DataProcessing.loadData(DataProcessing.getSharedPreferences(this))
@@ -99,60 +101,23 @@ class MainActivity : AppCompatActivity() {
         GoogleAccount.getPersonInfo()
         Log.d(LOG_TAG, Singleton.person.gender.value?.value)
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-    {
-        if(requestCode == Activity.RESULT_OK)
-        {
-            if(requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
-            {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Activity.RESULT_OK) {
+            if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
                 viewModel.accessGoogleFit()
             }
-            if(requestCode == GOOGLE_PROFILE_PERMISSION_REQUEST_CODE)
-            {
+            if (requestCode == GOOGLE_PROFILE_PERMISSION_REQUEST_CODE) {
 
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-    private fun initGoogleProfilePermission()
-    {
-        if(!GoogleSignIn.hasPermissions(GoogleAccount.getLastSignInAccount(this), Scope(Scopes.PROFILE)))
-        {
-            GoogleSignIn.requestPermissions(this,
-                GOOGLE_PROFILE_PERMISSION_REQUEST_CODE,
-                GoogleSignIn.getLastSignedInAccount(this),
-                Scope(Scopes.PROFILE))
-        }
-    }
-    private fun fitnessInit()
-    {
-        fitnessOptions = com.example.testcoursework.utils.mFitness.Fitness.fitnessInit()
-        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions))
-        {
-            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
-        }
-        else
-        {
-            viewModel.accessGoogleFit()
-        }
-    }
-    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int)
-    {
-        GoogleSignIn.requestPermissions(
-            this,
-            requestCode,
-            GoogleSignIn.getLastSignedInAccount(this),
-            fitnessOptions
-        )
-    }
-    override fun onDestroy()
-    {
+    override fun onDestroy() {
         DataProcessing.saveData(Singleton.person)
         super.onDestroy()
     }
 
-    fun changeGenderDialog(view: View)
-    {
+    fun changeGenderDialog(view: View) {
         MaterialDialog(this).show {
             listItemsSingleChoice(R.array.genders) { dialog, index, text ->
                 when(index)
@@ -183,8 +148,37 @@ class MainActivity : AppCompatActivity() {
     fun changeWeightDialog(view: View) = createMaterialDialog(this, "weight")
     fun changeHeightDialog(view: View) = createMaterialDialog(this, "height")
 
-    private fun createMaterialDialog(context: Context, param: String)
-    {
+    private fun initGoogleProfilePermission() {
+        if (!GoogleSignIn.hasPermissions(GoogleAccount.getLastSignInAccount(this),
+                        Scope(Scopes.PROFILE))) {
+            GoogleSignIn.requestPermissions(this,
+                GOOGLE_PROFILE_PERMISSION_REQUEST_CODE,
+                GoogleSignIn.getLastSignedInAccount(this),
+                Scope(Scopes.PROFILE))
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            val strings = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(this, strings, DANGEROUS_PERMISSION_REQUEST_CODE)
+        }
+    }
+    private fun fitnessInit() {
+        fitnessOptions = com.example.testcoursework.utils.mFitness.Fitness.fitnessInit()
+        if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
+        } else {
+            viewModel.accessGoogleFit()
+        }
+    }
+    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int) {
+        GoogleSignIn.requestPermissions(
+            this,
+            requestCode,
+            GoogleSignIn.getLastSignedInAccount(this),
+            fitnessOptions
+        )
+    }
+    private fun createMaterialDialog(context: Context, param: String) {
         MaterialDialog(context).show {
             cornerRadius(16f)
             negativeButton(R.string.cancel)
@@ -197,15 +191,13 @@ class MainActivity : AppCompatActivity() {
             }
             with(numberPicker) {
                 maxValue = 250
-                when(param)
-                {
+                when(param) {
                     "height" -> minValue = 70
                     "weight" -> minValue = 30
                 }
                 wrapSelectorWheel = false
             }
-            when(param)
-            {
+            when (param) {
                 "height" -> {
                     title(R.string.yourHeight)
                     positiveButton(R.string.mContinue) { Singleton.person.height.value = numberPicker.value }

@@ -10,15 +10,12 @@ import com.example.testcoursework.databinding.ActivityInformationBinding
 import com.example.testcoursework.utils.swipeListener.OnSwipeTouchListener
 import com.example.testcoursework.viewModel.InformationViewModel
 
-class InformationActivity : AppCompatActivity()
-{
+class InformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformationBinding
     private lateinit var viewModel: InformationViewModel
 
-
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_information)
         viewModel = ViewModelProviders.of(this).get(InformationViewModel::class.java)

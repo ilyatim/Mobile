@@ -26,16 +26,15 @@ import com.example.testcoursework.viewModel.PersonViewModel
 import kotlinx.android.synthetic.main.number_picker_dialog.*
 
 
-class PersonFragment : Fragment()
-{
+class PersonFragment : Fragment() {
     private lateinit var binding: PersonFragmentBinding
     private lateinit var viewModel: PersonViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
-    {
+    ): View? {
         viewModel = ViewModelProviders.of(this).get(PersonViewModel::class.java)
         activity?.window?.apply {
             decorView.systemUiVisibility = 0
@@ -49,38 +48,47 @@ class PersonFragment : Fragment()
         binding.executePendingBindings()
         return view
     }
-    private fun createAnimation()
-    {
-        val anim = AnimationUtils.loadAnimation(context, R.anim.lowering_curtain_person_fragment)
-        anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?)
-            {
-                binding.profileImagePersonFragment.alpha = 0f
-                binding.linearLayoutPersonInfo.alpha = 0f
-            }
-            override fun onAnimationEnd(animation: Animation?)
-            {
-                binding.profileImagePersonFragment.animate().alpha(1f).setDuration(1000).setListener(null)
-                binding.linearLayoutPersonInfo.animate().alpha(1f).setDuration(1000).setListener(null)
-            }
-            override fun onAnimationRepeat(animation: Animation?) {}
-        })
-        binding.personInfoView.startAnimation(anim)
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         observe()
         super.onActivityCreated(savedInstanceState)
     }
-    private fun observe()
-    {
+    private fun createAnimation() {
+        val anim = AnimationUtils.loadAnimation(context, R.anim.lowering_curtain_person_fragment)
+        anim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+                binding.profileImagePersonFragment.alpha = 0f
+                binding.linearLayoutPersonInfo.alpha = 0f
+            }
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.profileImagePersonFragment.animate()
+                        .alpha(1f)
+                        .setDuration(1000)
+                        .setListener(null)
+                binding.linearLayoutPersonInfo.animate()
+                        .alpha(1f)
+                        .setDuration(1000)
+                        .setListener(null)
+            }
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+        })
+        binding.personInfoView.startAnimation(anim)
+    }
+    private fun observe() {
         val context = this
         viewModel.uiEventLiveData.observe(this, Observer {
+            //TODO rewrite start activity 1-3
             when (it) {
-                1 -> { context.startActivity(Intent(activity , ProgressActivity::class.java)) }
-                2 -> { context.startActivity(Intent(activity , ProfileActivity::class.java)) }
-                3 -> { context.startActivity(Intent(activity , ReportActivity::class.java)) }
-                4 -> { context.startActivity(Intent(activity , InformationActivity::class.java)) }
+                1 -> {
+                    context.startActivity(Intent(activity , ProgressActivity::class.java))
+                }
+                3 -> {
+                    context.startActivity(Intent(activity , ReportActivity::class.java))
+                }
+                4 -> {
+                    context.startActivity(Intent(activity , InformationActivity::class.java))
+                }
             }
         })
         Singleton.person.fullName.observe(this, Observer {

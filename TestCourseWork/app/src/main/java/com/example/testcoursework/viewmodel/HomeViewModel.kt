@@ -15,8 +15,10 @@ import com.example.testcoursework.R
 import com.example.testcoursework.model.data.Singleton
 import kotlinx.android.synthetic.main.calories_layout.view.*
 
-class HomeViewModel: ViewModel()
-{
+class HomeViewModel: ViewModel() {
+    companion object {
+        private const val LOG_TAG: String = "ViewModel"
+    }
     val countOfDrunkWater = ObservableInt(Singleton.personActivity.countOfDrunkWater.value!!)
     val coveredDistance = ObservableFloat(Singleton.personActivity.coveredDistance.value!!)
     val numberOfSteps = ObservableField(Singleton.personActivity.numberOfSteps.value!!)
@@ -25,28 +27,30 @@ class HomeViewModel: ViewModel()
     val name = ObservableField(Singleton.person.name.value)
     val photoUrl = ObservableField(Singleton.person.photoUrl.value)
 
-    companion object {
-        private const val LOG_TAG: String = "ViewModel"
-    }
-    fun increaseTheAmountOfWaterDrunk()
-    {
+    fun increaseTheAmountOfWaterDrunk() {
         Singleton.personActivity.increaseWater()
     }
-    fun animateTextView(textView: TextView, initialValue: Int, finalValue: Int)
-    {
+    fun animateTextView(textView: TextView,
+                        initialValue: Int,
+                        finalValue: Int
+    ) {
         val valueAnimator: ValueAnimator = ValueAnimator.ofInt(initialValue, finalValue)
         valueAnimator.duration = 1000
         valueAnimator.addUpdateListener {
             textView.text = valueAnimator.animatedValue.toString()
         }
         valueAnimator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {}
-            override fun onAnimationCancel(animation: Animator?) {}
-            override fun onAnimationRepeat(animation: Animator?) {}
-            override fun onAnimationEnd(animation: Animator?)
-            {
-                when(textView.id)
-                {
+            override fun onAnimationStart(animation: Animator?) {
+
+            }
+            override fun onAnimationCancel(animation: Animator?) {
+
+            }
+            override fun onAnimationRepeat(animation: Animator?) {
+
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                when (textView.id) {
                     R.id.steps -> numberOfSteps.set(finalValue)
                     R.id.calories -> calories.set(finalValue)
                     R.id.weight -> currentWeight.set(finalValue)
@@ -55,30 +59,42 @@ class HomeViewModel: ViewModel()
         })
         valueAnimator.start()
     }
-    fun animateTextView(textView: TextView, initialValue: Float, finalValue: Float)
-    {
+    fun animateTextView(textView: TextView,
+                        initialValue: Float,
+                        finalValue: Float
+    ) {
         val valueAnimator: ValueAnimator = ValueAnimator.ofFloat(initialValue, finalValue)
         valueAnimator.duration = 1000
         valueAnimator.addUpdateListener {
             textView.text = valueAnimator.animatedValue.toString()
         }
         valueAnimator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {}
-            override fun onAnimationCancel(animation: Animator?) {}
-            override fun onAnimationRepeat(animation: Animator?) {}
-            override fun onAnimationEnd(animation: Animator?)
-            {
-                when(textView.id)
-                {
+            override fun onAnimationStart(animation: Animator?) {
+
+            }
+            override fun onAnimationCancel(animation: Animator?) {
+
+            }
+            override fun onAnimationRepeat(animation: Animator?) {
+
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                when (textView.id) {
                     R.id.distance -> coveredDistance.set(finalValue)
                 }
             }
         })
         valueAnimator.start()
     }
-    fun animateProgressBar(progressBar: ProgressBar, initialValue: Int, finalValue: Int, propertyName: String = "progress")
-    {
-        val objectAnimator = ObjectAnimator.ofInt(progressBar, propertyName, initialValue, finalValue)
+    fun animateProgressBar(progressBar: ProgressBar,
+                           initialValue: Int,
+                           finalValue: Int,
+                           propertyName: String = "progress"
+    ) {
+        val objectAnimator = ObjectAnimator.ofInt(progressBar,
+                propertyName,
+                initialValue,
+                finalValue)
         objectAnimator.duration = 1000
         objectAnimator.start()
     }
