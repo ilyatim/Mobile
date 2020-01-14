@@ -21,13 +21,13 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.afollestad.materialdialogs.list.toggleItemChecked
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.ActivityMainBinding
-import com.example.testcoursework.model.data.Singleton
-import com.example.testcoursework.model.data.enumClass.Gender
-import com.example.testcoursework.model.dataUtil.DataProcessing
+import com.example.testcoursework.data.model.personInfo.Singleton
+import com.example.testcoursework.data.model.classes.enumClass.Gender
+import com.example.testcoursework.data.repo.DataProcessing
 import com.example.testcoursework.ui.mFragment.HomeFragment
 import com.example.testcoursework.ui.mFragment.PersonFragment
 import com.example.testcoursework.ui.mFragment.WorkoutFragment
-import com.example.testcoursework.utils.googleAccount.GoogleAccount
+import com.example.testcoursework.data.repo.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.MyViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.Scopes
@@ -35,8 +35,6 @@ import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.number_picker_dialog.*
-import java.util.jar.Manifest
-import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -163,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun fitnessInit() {
-        fitnessOptions = com.example.testcoursework.utils.mFitness.Fitness.fitnessInit()
+        fitnessOptions = com.example.testcoursework.utils.mFitness.FitnessBuilder.fitnessInit()
         if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
             requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
         } else {

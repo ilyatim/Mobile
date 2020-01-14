@@ -1,23 +1,18 @@
 package com.example.testcoursework.ui.mFragment
 
-import android.animation.ObjectAnimator
-import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.system.Os
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.HomeFragmentBinding
-import com.example.testcoursework.model.data.Singleton
-import com.example.testcoursework.utils.googleAccount.GoogleAccount
+import com.example.testcoursework.data.model.personInfo.Singleton
+import com.example.testcoursework.data.repo.googleAccount.GoogleAccount
 import com.example.testcoursework.viewModel.HomeViewModel
 
 

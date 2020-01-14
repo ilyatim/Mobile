@@ -3,17 +3,14 @@ package com.example.testcoursework.viewModel
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import com.example.testcoursework.R
-import com.example.testcoursework.model.data.Singleton
-import kotlinx.android.synthetic.main.calories_layout.view.*
+import com.example.testcoursework.data.model.personInfo.Singleton
 
 class HomeViewModel: ViewModel() {
     companion object {

@@ -97,7 +97,7 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:onClick="@{() -> viewModel.onClick(1)}"
-                    app:backgroundColor="@color/progress_card_background"
+                    app:backgroundColor="@color/person_fragment_cards_background"
                     app:cornerRadius="15dp"
                     app:shadowColor="@color/shadow"
                     app:shadowDx="10"
@@ -117,33 +117,6 @@
                         android:textStyle="bold"
                         app:layout_gravity="center" />
             </com.loopeer.shadow.ShadowView>
-            <!--<com.loopeer.shadow.ShadowView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:onClick="@{() -> viewModel.onClick(2)}"
-                    android:layout_height="match_parent"
-                    android:clickable="true" android:focusable="true"
-                    android:elevation="10dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:backgroundColor="@color/profile_card_background"
-                    app:cornerRadius="15dp"
-
-                    app:shadowDx="10"
-                    app:shadowDy="10"
-                    app:shadowColor="@color/shadow"
-                    app:shadowMargin="10dp"
-                    app:shadowRadius="4dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_gravity="center"
-                        android:drawableTop="@drawable/person_fragment_ic_resume"
-                        android:textSize="@dimen/headerOfTextSize"
-                        android:textColor="@color/white"
-                        android:drawablePadding="20dp"
-                        android:textAlignment="center"
-                        android:text="@string/myProfileStringRes"/>
-            </com.loopeer.shadow.ShadowView>-->
         </LinearLayout>
 
         <LinearLayout
@@ -160,7 +133,7 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:onClick="@{() -> viewModel.onClick(3)}"
-                    app:backgroundColor="@color/report_card_background"
+                    app:backgroundColor="@color/person_fragment_cards_background"
                     app:cornerRadius="15dp"
                     app:shadowColor="@color/shadow"
                     app:shadowDx="10"
@@ -190,7 +163,7 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:onClick="@{() -> viewModel.onClick(4)}"
-                    app:backgroundColor="@color/info_card_background"
+                    app:backgroundColor="@color/person_fragment_cards_background"
                     app:cornerRadius="15dp"
                     app:shadowColor="@color/shadow"
                     app:shadowDx="10"
@@ -217,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
                 android:foreground="?attr/selectableItemBackground"
-                app:backgroundColor="@color/profile_card_background"
+                app:backgroundColor="@color/person_fragment_cards_background"
                 app:cornerRadius="15dp"
                 app:shadowColor="@color/shadow"
                 app:shadowDx="10"

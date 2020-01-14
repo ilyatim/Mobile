@@ -1,4 +1,4 @@
-package com.example.testcoursework.model.data.enumClass
+package com.example.testcoursework.data.model.classes.enumClass
 
 enum class Gender(gender: String) {
     MEN("Мужской"),

@@ -3,8 +3,8 @@ package com.example.testcoursework.viewModel
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
-import com.example.testcoursework.model.data.Singleton
-import com.example.testcoursework.model.data.liveData.SingleLiveData
+import com.example.testcoursework.data.model.personInfo.Singleton
+import com.example.testcoursework.data.model.classes.SingleLiveData
 
 class PersonViewModel : ViewModel() {
     val email = ObservableField(Singleton.person.email.value)

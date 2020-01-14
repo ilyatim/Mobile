@@ -1,4 +1,4 @@
-package com.example.testcoursework.model.data.enumClass
+package com.example.testcoursework.data.model.classes.enumClass
 
 enum class Exercises(name: String) {
     RUNNING(name = "Running"),

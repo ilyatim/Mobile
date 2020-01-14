@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.ActivityInformationBinding
-import com.example.testcoursework.utils.swipeListener.OnSwipeTouchListener
 import com.example.testcoursework.viewModel.InformationViewModel
 
 class InformationActivity : AppCompatActivity() {
