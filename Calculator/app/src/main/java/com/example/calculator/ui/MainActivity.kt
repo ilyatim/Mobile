@@ -1,15 +1,19 @@
 package com.example.calculator.ui
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.calculator.R
+import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.util.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.calc_buttons.*
 import kotlinx.android.synthetic.main.calc_output.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener
-{
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     var action: String = ""
     var calcOutput: Double = 0.0
     var firstNumber: String = ""
@@ -17,115 +21,52 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     var turnFirst = true
     var afterAction = false
 
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     fun plus(firstNum: Double, secondNum: Double) = firstNum + secondNum  //сложение чисел
     fun minus(firstNum: Double, secondNum: Double) = firstNum - secondNum //разность чисел
     fun multiply(firstNum: Double, secondNum: Double) = firstNum * secondNum  //умножение чисел
     fun share(firstNum: Double, secondNum: Double) = firstNum / secondNum     //деление чисел
-    fun percent(firstNum: Double, secondNum: Double): Double    //нахождение процентов от числа
-    {
-        return firstNum / 100 * secondNum
-    }
-    fun changeTheSign(num: Double): Double    //смена знака числа
-    {
-        return -1 * num
-    }
-
-    private fun clear()
-    {
-        action = ""
-        calcOutput = 0.0
-        firstNumber = ""
-        secondNumber = ""
-        outputTextView.text = ""
-        userInputTextView.text = ""
-        turnFirst = true
-        afterAction = false
-    }
-    private fun addToNumber(num: Int)
-    {
-        if(turnFirst)
-        {
-            if(afterAction)
-            {
-                firstNumber = num.toString()
-                afterAction = false
-            }
-            else
-            {
-                firstNumber += num
-            }
-        }
-        else
-        {
-            secondNumber += num
-        }
-        outputTextView.text = ""
-    }
-    private fun addToNumber(num: String)
-    {
-        if(turnFirst)
-        {
-            if(afterAction)
-            {
-                firstNumber = num
-                afterAction = false
-            }
-            else
-            {
-                firstNumber += num
-            }
-        }
-        else
-        {
-            secondNumber += num
-        }
-        outputTextView.text = ""
-    }
-    @SuppressLint("SetTextI18n")
-    private fun showUserInput()
-    {
-        userInputTextView.text = firstNumber + action + secondNumber
-    }
-    private fun showOutputText()
-    {
-        userInputTextView.text = ""
-        outputTextView.text = calcOutput.toString()
-    }
-    fun function()  //вывод информации в textview и дальшейнее ее запоминание
-    {
+    fun percent(firstNum: Double, secondNum: Double): Double = firstNum / 100 * secondNum   //нахождение процентов от числа
+    fun changeTheSign(num: Double): Double = -1 * num   //смена знака числа
+    fun function() { //вывод информации в textview и дальшейнее ее запоминание
         showOutputText()
         firstNumber = calcOutput.toString()
         action = ""
         secondNumber = ""
         afterAction = true
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+        setOnClickListenerForButtons()
+    }
     @SuppressLint("SetTextI18n")
-    override fun onClick(v: View?)
-    {
-        when(v?.id)
-        {
+    override fun onClick(v: View?) {
+        when (v?.id) {
             //Functional buttons
-            R.id.button_clear -> {
+            R.id.button_clear    -> {
                 clear()
             }
             R.id.button_opposite -> {
-                try
-                {
+                try {
                     calcOutput = changeTheSign(firstNumber.toDouble())
                     function()
-                }
-                catch (e: NumberFormatException)
-                {
+                } catch (e: NumberFormatException) {
                     outputTextView.text = "Wrong number"
                 }
             }
-            R.id.button_percent -> {
+            R.id.button_percent  -> {
                 action = "%"
                 turnFirst = false
                 showUserInput()
             }
-            R.id.button_share -> {
+            R.id.button_share    -> {
                 action = "/"
                 turnFirst = false
                 showUserInput()
@@ -135,22 +76,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
                 turnFirst = false
                 showUserInput()
             }
-            R.id.button_minus -> {
+            R.id.button_minus    -> {
                 action = "-"
                 turnFirst = false
                 showUserInput()
             }
-            R.id.button_plus -> {
+            R.id.button_plus     -> {
                 action = "+"
                 turnFirst = false
                 showUserInput()
             }
-            R.id.button_equally ->{
-                try
-                {
-                    when(action)
-                    {
-
+            R.id.button_equally  ->{
+                try {
+                    when (action) {
                         "%" -> {
                             calcOutput = percent(firstNumber.toDouble(), secondNumber.toDouble())
                         }
@@ -172,9 +110,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
                     }
                     function()
                     turnFirst = true
-                }
-                catch (e: java.lang.NumberFormatException)
-                {
+                } catch (e: java.lang.NumberFormatException) {
                     outputTextView.text = "Wrong number"
                 }
             }
@@ -225,16 +161,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
             }
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setOnClickListenerForButtons()
+    private fun clear() {
+        action = ""
+        calcOutput = 0.0
+        firstNumber = ""
+        secondNumber = ""
+        outputTextView.text = ""
+        userInputTextView.text = ""
+        turnFirst = true
+        afterAction = false
     }
-
-    private fun setOnClickListenerForButtons()
-    {
+    private fun addToNumber(num: Int) {
+        if (turnFirst) {
+            if (afterAction) {
+                firstNumber = num.toString()
+                afterAction = false
+            } else {
+                firstNumber += num
+            }
+        } else {
+            secondNumber += num
+        }
+        outputTextView.text = ""
+    }
+    private fun addToNumber(num: String) {
+        if (turnFirst) {
+            if (afterAction) {
+                firstNumber = num
+                afterAction = false
+            } else {
+                firstNumber += num
+            }
+        } else {
+            secondNumber += num
+        }
+        outputTextView.text = ""
+    }
+    @SuppressLint("SetTextI18n")
+    private fun showUserInput() {
+        userInputTextView.text = firstNumber + action + secondNumber
+    }
+    private fun showOutputText() {
+        userInputTextView.text = ""
+        outputTextView.text = calcOutput.toString()
+    }
+    private fun setOnClickListenerForButtons() {
         //Functional buttons
         button_clear.setOnClickListener(this)
         button_opposite.setOnClickListener(this)
