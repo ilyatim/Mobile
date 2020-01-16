@@ -4,31 +4,50 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.calculator.util.parser.Exec
-import java.lang.ArithmeticException
-import java.lang.Exception
-import java.lang.NullPointerException
-import java.lang.RuntimeException
+import kotlin.math.floor
+
 
 class MainViewModel : ViewModel() {
     var input = ObservableField<String>()
     var output = ObservableField<String>()
 
-    private var previous: Double? = null
+    private var previous: Double = 0.0
+    private var afterEqual: Boolean = false
 
-    fun add(value: String) {
-        if (input.get() == null) input.set(value)
-        else input.set("${input.get()} $value")
+    fun add(value: String, action: Boolean) {
+        if (afterEqual) {
+            if (isInteger(previous)) input.set(previous.toInt().toString())
+            else input.set(previous.toString())
+            afterEqual = false
+            setOutput(null)
+            if (!action) {
+                input.set(value)
+                return
+            }
+        }
+        if (action) {
+            if (input.get() == null) input.set(value)
+            else input.set("${input.get()} $value ")
+        } else {
+            if (input.get() == null) input.set(value)
+            else input.set(input.get() + value)
+        }
     }
     fun changeSign() {
 
     }
     fun clear() {
         inputClear()
-        setOutput("")
+        setOutput(null)
+        previous = 0.0
     }
     fun result() {
         try {
-            output.set(Exec.exec(input.get()!!).toString())
+            val result = Exec.exec(input.get()!!)
+            if (isInteger(result)) setOutput(result.toInt().toString())
+            else setOutput(result.toString())
+            previous = result
+            afterEqual = true
         } catch (e: RuntimeException) {
             inputClear()
             setOutput("Неверная запись")
@@ -42,10 +61,15 @@ class MainViewModel : ViewModel() {
             setOutput("ой")
         }
     }
-    private fun inputClear() {
-        input.set("")
+    private fun isInteger(variable: Double): Boolean {
+        return variable == floor(variable) &&
+                !java.lang.Double.isInfinite(variable) &&
+                !java.lang.Double.isNaN(variable) && variable <= Int.MAX_VALUE && variable >= Int.MIN_VALUE
     }
-    private fun setOutput(string: String) {
+    private fun inputClear() {
+        input.set(null)
+    }
+    private fun setOutput(string: String?) {
         output.set(string)
     }
 }
