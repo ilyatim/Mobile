@@ -1,4 +1,4 @@
-package com.example.calculator.util
+package com.example.calculator.util.parser
 
 import com.example.calculator.data.Token
 import com.example.calculator.data.TokenType
