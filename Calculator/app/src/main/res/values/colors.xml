@@ -12,10 +12,12 @@
     <!-- Functional buttons colors -->
 
     <color name="FuncButtonColorBackGr">#E2FA8022</color>
+    <color name="FuncButtonColorBackGr2">#E2EE9255</color>
     <color name="FuncButtonColorBackText">#E4DFDF</color>
 
     <!-- Number Buttons colors -->
 
     <color name="NumberButtonColorBackGr">#E2D3D1D1</color>
+    <color name="NumberButtonColorBackGr2">#E6615F5F</color>
     <color name="NumberButtonColorBackText">#E4DFDF</color>
 </resources>

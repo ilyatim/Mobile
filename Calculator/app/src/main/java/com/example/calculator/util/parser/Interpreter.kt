@@ -6,12 +6,12 @@ import com.example.calculator.data.node.ExprNode
 import com.example.calculator.data.node.NegativeNumberNode
 import com.example.calculator.data.node.NumberNode
 
-class Interpretor {
-    fun eval(n: ExprNode): Int {
+class Interpreter {
+    fun eval(n: ExprNode): Double {
         return when (n) {
-            is NumberNode -> Integer.parseInt(n.number.text)
+            is NumberNode         -> (n.number.text).toDouble()
             is NegativeNumberNode -> -1 * eval(n.number)
-            is BinOpNode -> {
+            is BinOpNode          -> {
                 val l = eval(n.left)
                 val r = eval(n.right)
                 when (n.op.type) {
@@ -19,7 +19,7 @@ class Interpretor {
                     TokenType.SUB -> l - r
                     TokenType.MUL -> l * r
                     TokenType.DIV -> {
-                        if (r == 0) throw ArithmeticException("Деление на ноль")
+                        if (r == 0.0) throw ArithmeticException("Деление на ноль")
                         else return l / r
                     }
                     else          -> throw IllegalArgumentException("Неверный TokenType")

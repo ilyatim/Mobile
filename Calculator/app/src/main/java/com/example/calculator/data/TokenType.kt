@@ -4,7 +4,8 @@ import java.util.regex.Pattern
 
 enum class TokenType(regExp: String)
 {
-    NUMBER("[0-9]+"),
+    NUMBER("\\d+\\.?\\d?+"),
+    //NUMBER("[0-9]+"),
     ADD("\\+"),
     SUB("-"),
     MUL("\\*"),

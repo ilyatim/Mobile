@@ -8,8 +8,10 @@ import com.example.calculator.data.node.NumberNode
 
 class Parser(private val tokens: List<Token>) {
     private var pos = 0
-    fun parse(): ExprNode
-    {
+
+    fun parse(): ExprNode = expression()
+
+    private fun expression(): ExprNode {
         var e1 = addend()
         var token: Token?
         while (true) {
@@ -23,8 +25,7 @@ class Parser(private val tokens: List<Token>) {
         }
         return e1
     }
-    private fun addend(): ExprNode
-    {
+    private fun addend() : ExprNode {
         var e1 = multiplier()
         var token: Token?
         while (true) {

@@ -13,24 +13,22 @@
             android:orientation="vertical">
 
         <TextView
-                android:text=""
+                android:text="@{viewModel.input}"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:textAlignment="textEnd"
-                android:layout_marginTop="2dp"
-                android:id="@+id/userInputTextView" />
+                android:layout_marginTop="2dp" />
 
         <TextView
-                android:text=""
+                android:text="@{viewModel.output}"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
                 android:textAlignment="textEnd"
-                android:layout_marginTop="2dp"
-                android:id="@+id/outputTextView" />
+                android:layout_marginTop="2dp"/>
 
     </LinearLayout>
 </layout>
