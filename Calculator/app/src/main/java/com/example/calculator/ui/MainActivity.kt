@@ -1,9 +1,10 @@
-package com.example.calculator
+package com.example.calculator.ui
 
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.calculator.R
 import kotlinx.android.synthetic.main.calc_buttons.*
 import kotlinx.android.synthetic.main.calc_output.*
 
