@@ -21,16 +21,12 @@ public class TranslatorBackgroundTask extends AsyncTask<String, Void, String> {
     public TranslatorBackgroundTask(Context ctx){
         this.ctx = ctx;
     }
-
     @Override
-    protected String doInBackground(String... params)
-    {
+    protected String doInBackground(String... params) {
         //String variables
         String textToBeTranslated = params[0];
         String languagePair = params[1];
-
         String jsonString;
-
         try {
             //Set up the translation call URL
             String yandexKey = "trnsl.1.1.20190804T102928Z.5fc9ef57facc50f1.f5fa79a164000b72201c7c919c917c80d93e8fea";

@@ -16,13 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class ListActivity : AppCompatActivity()
 {
     var senderLeft: Boolean = true
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
         val arguments: Bundle? = intent.extras
-        when(arguments?.get("sender").toString())
-        {
+        when(arguments?.get("sender").toString()) {
             "langOfTheTranslation" -> {
                 senderLeft = false
                 titleText.text = "Язык текста"
@@ -37,17 +35,12 @@ class ListActivity : AppCompatActivity()
             finish()
         }
         val adapter = RecyclerViewAdapter(resources.getStringArray(R.array.languages))
-        adapter.setOnClickListener(object: RecyclerViewAdapter.ClickListener
-        {
-            override fun onItemClick(string: String)
-            {
+        adapter.setOnClickListener(object: RecyclerViewAdapter.ClickListener {
+            override fun onItemClick(string: String) {
                 val intent: Intent = Intent()
-                if(senderLeft)
-                {
+                if(senderLeft) {
                     intent.putExtra("languageOfTheText", string)
-                }
-                else
-                {
+                } else {
                     intent.putExtra("languageOfTheTranslation", string)
                 }
                 setResult(Activity.RESULT_OK, intent)

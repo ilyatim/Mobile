@@ -8,31 +8,24 @@ import android.widget.TextView
 import com.example.translator.R
 import com.example.translator.adapter.RecyclerViewAdapter.ViewHolder
 
-class RecyclerViewAdapter(private val list: Array<String>) : RecyclerView.Adapter<ViewHolder>()
-{
+class RecyclerViewAdapter(private val list: Array<String>) : RecyclerView.Adapter<ViewHolder>() {
 
     companion object {
         lateinit var clickListener: ClickListener
     }
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
-    {
+    fun setOnClickListener(clickListener: ClickListener) {
+        RecyclerViewAdapter.clickListener = clickListener
+    }
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.languageName.text = list[position]
     }
-
-    override fun getItemCount(): Int
-    {
-        return list.size
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder
-    {
+    override fun getItemCount(): Int = list.size
+    override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         val item: View = inflater.inflate(R.layout.list, viewGroup, false)
         return ViewHolder(item)
     }
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener
-    {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val languageName = itemView.findViewById(R.id.textViewInList) as TextView
 
         init {
@@ -42,12 +35,7 @@ class RecyclerViewAdapter(private val list: Array<String>) : RecyclerView.Adapte
             clickListener.onItemClick(list[adapterPosition])
         }
     }
-    interface ClickListener
-    {
+    interface ClickListener {
         fun onItemClick(string: String)
-    }
-    fun setOnClickListener(clickListener: ClickListener)
-    {
-        RecyclerViewAdapter.clickListener = clickListener
     }
 }
