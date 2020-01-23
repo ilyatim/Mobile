@@ -1,8 +1,8 @@
-package com.example.translator.yandexAPI.translatorAPI;
+package com.example.translator.util.translatorApi;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
+
 import com.example.translator.ui.MainActivity;
 
 import java.io.BufferedReader;

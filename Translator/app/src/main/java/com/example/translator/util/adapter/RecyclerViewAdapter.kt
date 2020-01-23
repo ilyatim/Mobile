@@ -1,4 +1,4 @@
-package com.example.translator.adapter
+package com.example.translator.util.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.translator.R
-import com.example.translator.adapter.RecyclerViewAdapter.ViewHolder
+import com.example.translator.util.adapter.RecyclerViewAdapter.ViewHolder
 
 class RecyclerViewAdapter(private val list: Array<String>) : RecyclerView.Adapter<ViewHolder>() {
 

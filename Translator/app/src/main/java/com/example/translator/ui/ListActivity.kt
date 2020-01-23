@@ -4,14 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import com.example.translator.R
-import com.example.translator.adapter.RecyclerViewAdapter
+import com.example.translator.util.adapter.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_list.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class ListActivity : AppCompatActivity()
 {

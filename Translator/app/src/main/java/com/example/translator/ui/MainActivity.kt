@@ -7,16 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.example.translator.R
-import com.example.translator.yandexAPI.translatorAPI.TranslatorBackgroundTask
+import com.example.translator.util.translatorApi.TranslatorBackgroundTask
 import kotlinx.android.synthetic.main.activity_main.*
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -75,7 +72,10 @@ class MainActivity : AppCompatActivity() {
     }
     //Function for calling executing the Translator Background Task
     private fun translate(textToBeTranslated: String?, languagePair: String?) {
-        val translatorBackgroundTask = TranslatorBackgroundTask(context)
+        val translatorBackgroundTask =
+            TranslatorBackgroundTask(
+                context
+            )
         translatorBackgroundTask.execute(
             textToBeTranslated,
             languagePair
