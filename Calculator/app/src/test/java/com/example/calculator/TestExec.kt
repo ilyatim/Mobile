@@ -24,6 +24,8 @@ class TestExec {
     fun isInteger(variable: Double): Boolean {
         return variable == floor(variable) &&
                 !java.lang.Double.isInfinite(variable) &&
-                !java.lang.Double.isNaN(variable) && variable <= Int.MAX_VALUE && variable >= Int.MIN_VALUE
+                !java.lang.Double.isNaN(variable) &&
+                variable <= Int.MAX_VALUE &&
+                variable >= Int.MIN_VALUE
     }
 }

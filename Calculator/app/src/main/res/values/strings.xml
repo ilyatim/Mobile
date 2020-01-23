@@ -19,4 +19,5 @@
     <string name="Zero">0</string>
     <string name="Point">.</string>
     <string name="Equally">=</string>
+    <string name="erase">Erase</string>
 </resources>
