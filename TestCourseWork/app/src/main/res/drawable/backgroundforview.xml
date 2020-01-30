@@ -11,7 +11,7 @@ tools:targetApi="lollipop">
     </shape>
 </item>
 <item android:id="@android:id/background">
-    <shape >
+    <shape>
         <solid
                 android:color="@color/white"/>
         <corners

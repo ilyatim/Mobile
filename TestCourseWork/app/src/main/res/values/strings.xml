@@ -3,8 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_workout">workout</string>
-    <string name="title_about_me">about Me</string>
+    <string name="title_workout">Workout</string>
+    <string name="title_about_me">About Me</string>
     <string name="water">Вода</string>
     <string name="glassPost">стак.</string>
     <string name="startingValueOfWater">0</string>
@@ -50,4 +50,8 @@
     <string name="gender">Пол - %s</string>
     <string name="statistics">Статистика</string>
     <string name="left_chevron">Left chevron</string>
+    <string name="server_client_id">119728534049-st498o7e9vsatp0m1b0qthh8g8vr5tnf.apps.googleusercontent.com</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="loginActivityHello">Для дальнейшей работы приложения требуется войти в аккаунт Google и дать несколько разрешений</string>
 </resources>
+

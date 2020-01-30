@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui.mFragment
 
+import android.app.Application
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.HomeFragmentBinding
 import com.example.testcoursework.data.model.personInfo.Singleton
@@ -36,7 +38,7 @@ class HomeFragment : Fragment() {
         }
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
         val view: View = binding.root
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(Application()).create(HomeViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.executePendingBindings()
@@ -51,29 +53,29 @@ class HomeFragment : Fragment() {
         super.onResume()
     }
     private fun observe() {
-        Singleton.person.name.observe(this, Observer {
+        Singleton.person.name.observe(viewLifecycleOwner, Observer {
             viewModel.name.set(it)
         })
-        Singleton.person.photoUrl.observe(this, Observer {
+        Singleton.person.photoUrl.observe(viewLifecycleOwner, Observer {
             viewModel.photoUrl.set(it)
         })
-        Singleton.personActivity.calories.observe(this, Observer<Int> {
+        Singleton.personActivity.calories.observe(viewLifecycleOwner, Observer<Int> {
             val lastValue = viewModel.calories.get()!!
             viewModel.animateTextView(binding.caloriesLayout.calories, lastValue, it)
         })
-        Singleton.personActivity.countOfDrunkWater.observe(this, Observer<Int> {
+        Singleton.personActivity.countOfDrunkWater.observe(viewLifecycleOwner, Observer<Int> {
             viewModel.countOfDrunkWater.set(it)
         })
-        Singleton.personActivity.coveredDistance.observe(this, Observer<Float> {
+        Singleton.personActivity.coveredDistance.observe(viewLifecycleOwner, Observer<Float> {
             val lastValue = viewModel.coveredDistance.get()
             viewModel.animateTextView(binding.distanceLayout.distance, lastValue, it)
         })
-        Singleton.personActivity.numberOfSteps.observe(this, Observer<Int> {
+        Singleton.personActivity.numberOfSteps.observe(viewLifecycleOwner, Observer<Int> {
             val lastValue = viewModel.numberOfSteps.get()!!
             viewModel.animateTextView(binding.stepsLayout.steps, lastValue, it)
             viewModel.animateProgressBar(binding.periodOfActivityLayout.progressBar, lastValue, it)
         })
-        Singleton.person.weight.observe(this, Observer<Int> {
+        Singleton.person.weight.observe(viewLifecycleOwner, Observer<Int> {
             val lastValue = viewModel.currentWeight.get()
             viewModel.animateTextView(binding.weightLayout.weight, lastValue, it)
         })

@@ -66,11 +66,10 @@ object GoogleAccount {
                 Fitness.getHistoryClient(it1, it)
                     .readDailyTotalFromLocalDevice(DataType.TYPE_STEP_COUNT_DELTA)
                     .addOnSuccessListener {
-                        Singleton.personActivity.numberOfSteps.value = if (it.dataPoints.isEmpty()){
-                            0
-                        } else {
+                        Singleton.personActivity.numberOfSteps.value = if (it.dataPoints.isEmpty()){ 0 } else {
                             it.dataPoints[0].getValue(Field.FIELD_STEPS).asInt()
                         }
+                        Log.d(LOG_TAG, "${Singleton.personActivity.numberOfSteps}")
                     }
                     .addOnCompleteListener {
                         return@addOnCompleteListener

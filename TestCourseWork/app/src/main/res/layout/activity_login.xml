@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.testcoursework.viewModel.SplashViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/colorPurpleBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.LoginActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="150dp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:text="@string/loginActivityHello"/>
+        <com.loopeer.shadow.ShadowView
+            android:layout_width="298dp"
+            android:layout_height="73dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="571dp"
+            android:layout_marginBottom="87dp"
+            android:elevation="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cornerRadius="3dp"
+            app:shadowDx="5"
+            app:shadowDy="10"
+            app:shadowColor="@color/shadow"
+            app:shadowMargin="10dp"
+            app:shadowRadius="4dp">
+            <Button
+                android:layout_width="278dp"
+                android:layout_height="53dp"
+                android:background="@drawable/google_sign_in_background"
+                android:clickable="true"
+                android:contentDescription="@string/login_with_google"
+                android:drawableStart="@drawable/ic_google_logo"
+                android:focusable="true"
+                android:onClick="onClick"
+                android:text="@string/login_with_google"
+                android:textColor="@color/textColorBlack" />
+        </com.loopeer.shadow.ShadowView>
+    </RelativeLayout>
+</layout>
