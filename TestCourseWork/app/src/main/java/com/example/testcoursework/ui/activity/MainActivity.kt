@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -39,14 +40,9 @@ import kotlinx.android.synthetic.main.number_picker_dialog.*
 class MainActivity : AppCompatActivity() {
     companion object {
         private var currentFragment: Int = -1
-        private const val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1//System.identityHashCode(this).compareTo(0xFFFF)
-        private const val GOOGLE_PROFILE_PERMISSION_REQUEST_CODE = 2//
-        private const val DANGEROUS_PERMISSION_REQUEST_CODE = 3//
-        private const val LOG_TAG: String = "CheckMainActivity"
     }
     private lateinit var viewModel: MyViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var fitnessOptions: FitnessOptions
 
     private val onNavigationItemSelectedListener =
             BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -86,29 +82,14 @@ class MainActivity : AppCompatActivity() {
         DataProcessing.loadData(DataProcessing.getSharedPreferences(this))
 
         supportFragmentManager.beginTransaction().add(R.id.fragment, HomeFragment()).commit()
-
-        viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(this.application).create(MyViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.executePendingBindings()
         binding.navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        fitnessInit()
-        initGoogleProfilePermission()
         GoogleAccount.getPersonActivity(this)
         GoogleAccount.getPersonInfo()
-        Log.d(LOG_TAG, Singleton.person.gender.value?.value)
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == Activity.RESULT_OK) {
-            if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
-                viewModel.accessGoogleFit()
-            }
-            if (requestCode == GOOGLE_PROFILE_PERMISSION_REQUEST_CODE) {
-
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
     override fun onDestroy() {
         DataProcessing.saveData(Singleton.person)
@@ -146,36 +127,6 @@ class MainActivity : AppCompatActivity() {
     fun changeWeightDialog(view: View) = createMaterialDialog(this, "weight")
     fun changeHeightDialog(view: View) = createMaterialDialog(this, "height")
 
-    private fun initGoogleProfilePermission() {
-        if (!GoogleSignIn.hasPermissions(GoogleAccount.getLastSignInAccount(this),
-                        Scope(Scopes.PROFILE))) {
-            GoogleSignIn.requestPermissions(this,
-                GOOGLE_PROFILE_PERMISSION_REQUEST_CODE,
-                GoogleSignIn.getLastSignedInAccount(this),
-                Scope(Scopes.PROFILE))
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            val strings = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-            ActivityCompat.requestPermissions(this, strings, DANGEROUS_PERMISSION_REQUEST_CODE)
-        }
-    }
-    private fun fitnessInit() {
-        fitnessOptions = com.example.testcoursework.utils.mFitness.FitnessBuilder.fitnessInit()
-        if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
-            requestPermission(fitnessOptions, GOOGLE_FIT_PERMISSIONS_REQUEST_CODE)
-        } else {
-            viewModel.accessGoogleFit()
-        }
-    }
-    private fun requestPermission(fitnessOptions: FitnessOptions, requestCode: Int) {
-        GoogleSignIn.requestPermissions(
-            this,
-            requestCode,
-            GoogleSignIn.getLastSignedInAccount(this),
-            fitnessOptions
-        )
-    }
     private fun createMaterialDialog(context: Context, param: String) {
         MaterialDialog(context).show {
             cornerRadius(16f)

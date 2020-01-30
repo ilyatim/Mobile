@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- primary -->
+    <color name="colorPurpleBack">#332C62</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorPrimaryWhite">#ffffff</color>
     <color name="colorAccent">#D5D3D2</color>

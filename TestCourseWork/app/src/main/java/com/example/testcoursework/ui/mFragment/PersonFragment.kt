@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui.mFragment
 
+import android.app.Application
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat.getColor
+import androidx.lifecycle.ViewModelProvider
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.PersonFragmentBinding
 import com.example.testcoursework.data.model.personInfo.Singleton
@@ -28,7 +30,7 @@ class PersonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(PersonViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(Application()).create(PersonViewModel::class.java)
         activity?.window?.apply {
             decorView.systemUiVisibility = 0
             statusBarColor = getColor(context, R.color.top_bar_background)
@@ -55,11 +57,11 @@ class PersonFragment : Fragment() {
             override fun onAnimationEnd(animation: Animation?) {
                 binding.profileImagePersonFragment.animate()
                         .alpha(1f)
-                        .setDuration(1000)
+                        .setDuration(500)
                         .setListener(null)
                 binding.linearLayoutPersonInfo.animate()
                         .alpha(1f)
-                        .setDuration(1000)
+                        .setDuration(500)
                         .setListener(null)
             }
             override fun onAnimationRepeat(animation: Animation?) {
@@ -70,7 +72,7 @@ class PersonFragment : Fragment() {
     }
     private fun observe() {
         val context = this
-        viewModel.uiEventLiveData.observe(this, Observer {
+        viewModel.uiEventLiveData.observe(viewLifecycleOwner, Observer {
             //TODO rewrite start activity 1-3
             when (it) {
                 1 -> {
@@ -84,19 +86,19 @@ class PersonFragment : Fragment() {
                 }
             }
         })
-        Singleton.person.fullName.observe(this, Observer {
+        Singleton.person.fullName.observe(viewLifecycleOwner, Observer {
             viewModel.fullName.set(it)
         })
-        Singleton.person.email.observe(this, Observer {
+        Singleton.person.email.observe(viewLifecycleOwner, Observer {
             viewModel.email.set(it)
         })
-        Singleton.person.weight.observe(this, Observer<Int> {
+        Singleton.person.weight.observe(viewLifecycleOwner, Observer<Int> {
             viewModel.weight.set(it)
         })
-        Singleton.person.height.observe(this, Observer<Int> {
+        Singleton.person.height.observe(viewLifecycleOwner, Observer<Int> {
             viewModel.height.set(it)
         })
-        Singleton.person.gender.observe(this, Observer {
+        Singleton.person.gender.observe(viewLifecycleOwner, Observer {
             viewModel.gender.set(it.value)
         })
     }

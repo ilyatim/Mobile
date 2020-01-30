@@ -1,5 +1,6 @@
 package com.example.testcoursework.ui.mFragment
 
+import android.app.Application
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.testcoursework.R
 import com.example.testcoursework.databinding.WorkoutFragmentBinding
 import com.example.testcoursework.viewModel.WorkoutViewModel
@@ -24,7 +26,7 @@ class WorkoutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(Application()).create(WorkoutViewModel::class.java)
         activity?.window?.apply {
             decorView.systemUiVisibility = 0
             statusBarColor = getColor(context, R.color.top_bar_background)
@@ -41,6 +43,7 @@ class WorkoutFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
     }
+
     private fun createAnimation() {
         shadowViewAnim()
     }
