@@ -2,57 +2,58 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="viewModel" type="com.example.testcoursework.viewModel.HomeViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.example.testcoursework.viewModel.HomeViewModel"/>
     </data>
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:scrollbars="none">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scrollbars="none">
         <LinearLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            <include layout="@layout/hello_layout"
-                    bind:viewModel="@{viewModel}"/>
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                layout="@layout/hello_layout"
+                bind:viewModel="@{viewModel}"/>
             <HorizontalScrollView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none">
-
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
                 <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
                     <include
-                            android:id="@+id/stepsLayout"
-                            layout="@layout/steps_layout"
-                            bind:viewModel="@{viewModel}"/>
+                        android:id="@+id/stepsLayout"
+                        layout="@layout/steps_layout"
+                        bind:viewModel="@{viewModel}"/>
                     <include
-                            android:id="@+id/distanceLayout"
-                            layout="@layout/distance_layout"
-                            bind:viewModel="@{viewModel}"/>
+                        android:id="@+id/distanceLayout"
+                        layout="@layout/distance_layout"
+                        bind:viewModel="@{viewModel}"/>
                     <include
-                            android:id="@+id/caloriesLayout"
-                            layout="@layout/calories_layout"
-                            bind:viewModel="@{viewModel}"/>
+                        android:id="@+id/caloriesLayout"
+                        layout="@layout/calories_layout"
+                        bind:viewModel="@{viewModel}"/>
                     <include
-                            android:id="@+id/weightLayout"
-                            layout="@layout/weight_layout"
-                            bind:viewModel="@{viewModel}"/>
+                        android:id="@+id/weightLayout"
+                        layout="@layout/weight_layout"
+                        bind:viewModel="@{viewModel}"/>
                 </LinearLayout>
             </HorizontalScrollView>
             <include
-                    android:id="@+id/periodOfActivityLayout"
-                    layout="@layout/period_of_activity_layout"
-                    bind:viewModel="@{viewModel}"/>
+                android:id="@+id/periodOfActivityLayout"
+                layout="@layout/period_of_activity_layout"
+                bind:viewModel="@{viewModel}"/>
             <include
-                    android:id="@+id/waterLayout"
-                    layout="@layout/water_layout"
-                    bind:viewModel="@{viewModel}"/>
+                android:id="@+id/waterLayout"
+                layout="@layout/water_layout"
+                bind:viewModel="@{viewModel}"/>
         </LinearLayout>
     </ScrollView>
 </layout>

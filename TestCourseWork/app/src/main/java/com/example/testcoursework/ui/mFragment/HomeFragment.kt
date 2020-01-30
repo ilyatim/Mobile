@@ -22,8 +22,6 @@ class HomeFragment : Fragment() {
     companion object {
         private const val LOG_TAG = "HomeFragmentTag"
     }
-
-    private var firstInit = true
     private lateinit var binding: HomeFragmentBinding
     private lateinit var viewModel: HomeViewModel
 

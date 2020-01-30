@@ -3,26 +3,26 @@
         xmlns:tools="http://schemas.android.com/tools" >
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel" type="com.example.testcoursework.viewModel.MyViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.example.testcoursework.viewModel.MyViewModel"/>
     </data>
     <LinearLayout
-            android:id="@+id/container"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.activity.MainActivity">
-
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.MainActivity">
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/fragment"
-                android:layout_weight="1"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/fragment"
+            android:layout_weight="1"/>
         <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/windowBackground"
-                app:menu="@menu/bottom_nav_menu"/>
-
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/bottom_nav_menu"/>
     </LinearLayout>
 </layout>

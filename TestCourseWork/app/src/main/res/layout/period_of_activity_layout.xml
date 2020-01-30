@@ -3,56 +3,55 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="viewModel" type="com.example.testcoursework.viewModel.HomeViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.example.testcoursework.viewModel.HomeViewModel"/>
     </data>
-
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="205dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp">
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp">
         <com.loopeer.shadow.ShadowView
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" android:focusable="true"
+            android:elevation="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:backgroundColor="@color/period_of_activity_background"
+            app:cornerRadius="28dp"
+            app:shadowColor="@color/shadow"
+            app:shadowMargin="10dp"
+            app:shadowRadius="50dp">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true" android:focusable="true"
-                android:elevation="10dp"
-                android:foreground="?attr/selectableItemBackground"
-                app:backgroundColor="@color/period_of_activity_background"
-                app:cornerRadius="28dp"
-                app:shadowColor="@color/shadow"
-                app:shadowMargin="10dp"
-                app:shadowRadius="50dp">
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    <ProgressBar
-                            android:id="@+id/progressBar"
-                            android:layout_width="147dp"
-                            android:layout_height="147dp"
-                            android:indeterminate="false"
-                            android:layout_centerInParent="true"
-                            android:max="10000"
-                            android:progress="@{viewModel.numberOfSteps}"
-                            android:animationResolution="100"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:background="@drawable/home_fragment_custom_progress_bar_background"
-                            android:progressDrawable="@drawable/home_fragment_custom_progress_bar_progress_drawable"/>
-
-                    <TextView
-                            android:id="@+id/stepsInProgressBar"
-                            android:layout_width="114dp"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text='@{String.valueOf(viewModel.numberOfSteps) + "/10000 шагов"}'
-                            android:textAlignment="center"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/normalTextSize"
-                            android:textStyle="bold" />
-                </RelativeLayout>
+                android:layout_height="match_parent">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="147dp"
+                    android:layout_height="147dp"
+                    android:indeterminate="false"
+                    android:layout_centerInParent="true"
+                    android:max="10000"
+                    android:progress="@{viewModel.numberOfSteps}"
+                    android:animationResolution="100"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:background="@drawable/home_fragment_custom_progress_bar_background"
+                    android:progressDrawable="@drawable/home_fragment_custom_progress_bar_progress_drawable"/>
+                <TextView
+                    android:id="@+id/stepsInProgressBar"
+                    android:layout_width="114dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text='@{String.valueOf(viewModel.numberOfSteps) + "/10000 шагов"}'
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/normalTextSize"
+                    android:textStyle="bold" />
+            </RelativeLayout>
         </com.loopeer.shadow.ShadowView>
     </LinearLayout>
 </layout>
