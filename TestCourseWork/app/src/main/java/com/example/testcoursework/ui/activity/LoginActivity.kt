@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRe
                     }
                 }
             }
-        } else Toast.makeText(this, "Требуется войти в аккаунт", Toast.LENGTH_LONG).show()
+        } else Toast.makeText(this, "Ой, что-то пошло не так", Toast.LENGTH_LONG).show()
         super.onActivityResult(requestCode, resultCode, data)
     }
     override fun onRequestPermissionsResult(

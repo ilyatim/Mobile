@@ -79,6 +79,7 @@
             android:layout_height="140dp"
             android:orientation="horizontal">
             <com.loopeer.shadow.ShadowView
+                android:id="@+id/progress_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -112,6 +113,7 @@
             android:layout_height="140dp"
             android:orientation="horizontal">
             <com.loopeer.shadow.ShadowView
+                android:id="@+id/report_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -140,6 +142,7 @@
                     app:layout_gravity="center" />
             </com.loopeer.shadow.ShadowView>
             <com.loopeer.shadow.ShadowView
+                android:id="@+id/info_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -169,6 +172,7 @@
             </com.loopeer.shadow.ShadowView>
         </LinearLayout>
         <com.loopeer.shadow.ShadowView
+            android:id="@+id/data_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"

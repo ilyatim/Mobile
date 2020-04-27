@@ -11,7 +11,7 @@ import kotlin.math.floor
 
 class TestExec {
     @Test
-    fun exec() {
+    fun fullExec() {
         val value = "44.1 + 1"
         val tokens = Lexeme(value).getLex()
         tokens.removeAll { t -> t.type == TokenType.SPACE }
@@ -20,6 +20,29 @@ class TestExec {
     @Test
     fun checkDouble() {
         println(isInteger(12.000000000000))
+    }
+    @Test
+    fun checkParser() {
+        val value = "44.1 + 1"
+        val tokens = Lexeme(value).getLex()
+        tokens.removeAll { t -> t.type == TokenType.SPACE }
+        println(Parser(tokens).parse().toString())
+    }
+    @Test
+    fun largeExpression() {
+        val value = "1 + 2 * 3 / 2 + 2 + (1 + 2)"
+        val tokens = Lexeme(value).getLex()
+        tokens.removeAll { t -> t.type == TokenType.SPACE }
+        val finalValue = Interpreter().eval(Parser(tokens).parse())
+        println(if (isInteger(finalValue)) finalValue.toInt() else finalValue)
+    }
+    @Test
+    fun veryLargeExpression() {
+        val value = "3 * 3 * 3 * 3 * 3 * 3 * 3 * 0"
+        val tokens = Lexeme(value).getLex()
+        tokens.removeAll { t -> t.type == TokenType.SPACE }
+        val finalValue = Interpreter().eval(Parser(tokens).parse())
+        println(if (isInteger(finalValue)) finalValue.toInt() else finalValue)
     }
     fun isInteger(variable: Double): Boolean {
         return variable == floor(variable) &&

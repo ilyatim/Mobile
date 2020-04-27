@@ -56,7 +56,7 @@ class WorkoutFragment : Fragment() {
             override fun onAnimationEnd(animation: Animation?) {
                 binding.historyTextView.animate()
                         .alpha(1f)
-                        .setDuration(1000)
+                        .setDuration(250)
                         .setListener(null)
             }
             override fun onAnimationStart(animation: Animation?) {

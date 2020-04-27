@@ -53,15 +53,35 @@ class PersonFragment : Fragment() {
             override fun onAnimationStart(animation: Animation?) {
                 binding.profileImagePersonFragment.alpha = 0f
                 binding.linearLayoutPersonInfo.alpha = 0f
+                binding.progressView.alpha = 0f
+                binding.reportView.alpha = 0f
+                binding.infoView.alpha = 0f
+                binding.dataView.alpha = 0f
             }
             override fun onAnimationEnd(animation: Animation?) {
                 binding.profileImagePersonFragment.animate()
                         .alpha(1f)
-                        .setDuration(500)
+                        .setDuration(250)
                         .setListener(null)
                 binding.linearLayoutPersonInfo.animate()
                         .alpha(1f)
-                        .setDuration(500)
+                        .setDuration(250)
+                        .setListener(null)
+                binding.progressView.animate()
+                        .alpha(1f)
+                        .setDuration(250)
+                        .setListener(null)
+                binding.reportView.animate()
+                        .alpha(1f)
+                        .setDuration(250)
+                        .setListener(null)
+                binding.infoView.animate()
+                        .alpha(1f)
+                        .setDuration(250)
+                        .setListener(null)
+                binding.dataView.animate()
+                        .alpha(1f)
+                        .setDuration(250)
                         .setListener(null)
             }
             override fun onAnimationRepeat(animation: Animation?) {
