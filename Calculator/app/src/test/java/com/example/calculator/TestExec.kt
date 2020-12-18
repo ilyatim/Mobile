@@ -7,6 +7,7 @@ import com.example.calculator.util.parser.Interpreter
 import com.example.calculator.util.parser.Lexeme
 import com.example.calculator.util.parser.Parser
 import org.junit.Test
+/*
 import kotlin.math.floor
 
 class TestExec {
@@ -51,4 +52,4 @@ class TestExec {
                 variable <= Int.MAX_VALUE &&
                 variable >= Int.MIN_VALUE
     }
-}
+}*/
